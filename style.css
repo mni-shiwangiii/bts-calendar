@@ -797,7 +797,7 @@ body.light-theme::-webkit-scrollbar-thumb {
 }
 
 /* ================================================================ */
-/* MOBILE RESPONSIVE - COMBINED */
+/* MOBILE RESPONSIVE */
 /* ================================================================ */
 
 @media (max-width: 768px) {
@@ -948,7 +948,6 @@ body.light-theme::-webkit-scrollbar-thumb {
         right: 2px !important;
     }
 
-    /* Mobile Tooltip */
     .tooltip {
         max-width: 160px !important;
         min-width: 100px !important;
@@ -957,40 +956,54 @@ body.light-theme::-webkit-scrollbar-thumb {
         border-radius: 8px !important;
         pointer-events: none !important;
         z-index: 1001 !important;
-        transform: translateY(0) !important;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        background: rgba(20, 15, 40, 0.95) !important;
+        border: 1px solid rgba(150, 100, 255, 0.2) !important;
+        opacity: 0 !important;
+        transition: opacity 0.2s ease !important;
+        transform: none !important;
     }
 
     .tooltip.visible {
-        transform: translateY(0) !important;
+        opacity: 1 !important;
     }
 
     .tooltip .event-title {
         font-size: 0.6rem !important;
         line-height: 1.2 !important;
+        color: #b388ff !important;
     }
 
     .tooltip .event-year {
         font-size: 0.5rem !important;
         padding: 0 6px !important;
         margin-top: 2px !important;
+        color: #7a6a9a !important;
+        display: inline-block !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-radius: 10px !important;
     }
 
     .tooltip::after {
-        bottom: -5px !important;
-        border-left: 5px solid transparent !important;
-        border-right: 5px solid transparent !important;
-        border-top: 5px solid rgba(20, 15, 40, 0.95) !important;
+        content: '' !important;
+        position: absolute !important;
+        bottom: -6px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 0 !important;
+        height: 0 !important;
+        border-left: 6px solid transparent !important;
+        border-right: 6px solid transparent !important;
+        border-top: 6px solid rgba(20, 15, 40, 0.95) !important;
     }
 
     .tooltip.below::after {
-        top: -5px !important;
+        top: -6px !important;
         bottom: auto !important;
         border-top: none !important;
-        border-bottom: 5px solid rgba(20, 15, 40, 0.95) !important;
+        border-bottom: 6px solid rgba(20, 15, 40, 0.95) !important;
     }
 
-    /* Mobile Popup */
     .popup {
         width: 95% !important;
         max-width: 95% !important;
@@ -1207,7 +1220,7 @@ body.light-theme::-webkit-scrollbar-thumb {
 
     .tooltip {
         max-width: 140px !important;
-        min-width: 100px !important;
+        min-width: 80px !important;
         padding: 4px 6px !important;
         font-size: 0.5rem !important;
     }
@@ -1311,112 +1324,5 @@ body.light-theme::-webkit-scrollbar-thumb {
     #app {
         padding: 30px !important;
         max-width: 1000px !important;
-    }
-}
-/* ================================================================ */
-/* MOBILE TOOLTIP - VERTICAL MODE FIX */
-/* ================================================================ */
-
-@media (max-width: 768px) {
-    .tooltip {
-        max-width: 160px !important;
-        min-width: 100px !important;
-        padding: 6px 10px !important;
-        font-size: 0.55rem !important;
-        border-radius: 8px !important;
-        pointer-events: none !important;
-        z-index: 1001 !important;
-        transform: translateY(0) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-        position: fixed !important;
-        left: auto !important;
-        right: auto !important;
-    }
-
-    .tooltip.visible {
-        transform: translateY(0) !important;
-        opacity: 1 !important;
-    }
-
-    .tooltip .event-title {
-        font-size: 0.6rem !important;
-        line-height: 1.2 !important;
-    }
-
-    .tooltip .event-year {
-        font-size: 0.5rem !important;
-        padding: 0 6px !important;
-        margin-top: 2px !important;
-    }
-
-    /* Arrow */
-    .tooltip::after {
-        bottom: -5px !important;
-        border-left: 5px solid transparent !important;
-        border-right: 5px solid transparent !important;
-        border-top: 5px solid rgba(20, 15, 40, 0.95) !important;
-        content: '' !important;
-        position: absolute !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        width: 0 !important;
-        height: 0 !important;
-    }
-
-    .tooltip.below::after {
-        top: -5px !important;
-        bottom: auto !important;
-        border-top: none !important;
-        border-bottom: 5px solid rgba(20, 15, 40, 0.95) !important;
-    }
-}
-/* ================================================================ */
-/* MOBILE VERTICAL MODE - POPUP FIX */
-/* ================================================================ */
-
-@media (max-width: 768px) and (orientation: portrait) {
-    .date-cell {
-        min-height: 35px !important;
-        max-height: 45px !important;
-        font-size: 0.6rem !important;
-        padding: 2px !important;
-    }
-
-    .date-cell .day-number {
-        font-size: 0.6rem !important;
-    }
-
-    .date-cell .event-indicator {
-        width: 3px !important;
-        height: 3px !important;
-        margin-top: 1px !important;
-    }
-
-    .date-cell .note-indicator {
-        width: 3px !important;
-        height: 3px !important;
-        margin-top: 1px !important;
-    }
-
-    .calendar-grid {
-        gap: 2px !important;
-        padding: 2px !important;
-    }
-
-    .tooltip {
-        max-width: 140px !important;
-        min-width: 80px !important;
-        padding: 4px 8px !important;
-        font-size: 0.5rem !important;
-        border-radius: 6px !important;
-    }
-
-    .tooltip .event-title {
-        font-size: 0.55rem !important;
-    }
-
-    .tooltip .event-year {
-        font-size: 0.45rem !important;
-        padding: 0 4px !important;
     }
 }
