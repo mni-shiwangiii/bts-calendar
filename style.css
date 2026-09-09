@@ -797,427 +797,67 @@ body.light-theme::-webkit-scrollbar-thumb {
 }
 
 /* ================================================================ */
-/* MOBILE RESPONSIVE */
+/* MOBILE RESPONSIVE - COMPLETE FIX */
 /* ================================================================ */
 
 @media (max-width: 768px) {
     #app {
-        padding: 12px;
-        border-radius: 16px;
-        margin: 8px;
+        padding: 10px !important;
+        border-radius: 16px !important;
+        margin: 5px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
     }
 
     .header-row h1 {
-        font-size: 1rem !important;
-    }
-
-    .header-row {
-        gap: 8px;
+        font-size: 0.85rem !important;
     }
 
     .theme-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 1.1rem;
-    }
-
-    .nav-controls {
-        padding: 6px 10px;
-        gap: 4px;
-        flex-wrap: wrap;
-        justify-content: center;
-        border-radius: 30px;
-    }
-
-    .nav-controls button {
-        font-size: 1.2rem;
-        padding: 4px 10px;
-        min-width: 32px;
-    }
-
-    #currentMonthYear {
+        width: 32px !important;
+        height: 32px !important;
         font-size: 0.9rem !important;
-        min-width: 100px;
-        text-align: center;
-    }
-
-    #monthDisplay {
-        font-size: 0.85rem;
-    }
-
-    #yearDisplay {
-        font-size: 0.85rem;
-        min-width: 40px;
-    }
-
-    #todayBtn {
-        font-size: 0.7rem !important;
-        padding: 4px 10px !important;
-    }
-
-    .day-headers {
-        gap: 2px;
-        margin-bottom: 4px;
-        padding: 0 2px;
-    }
-
-    .day-headers div {
-        font-size: 0.55rem;
-        padding: 4px 0;
-        letter-spacing: 0.3px;
-    }
-
-    .calendar-grid {
-        gap: 2px;
-        padding: 2px;
-    }
-
-    .date-cell {
-        min-height: 38px;
-        border-radius: 8px;
-        font-size: 0.7rem;
-        padding: 2px;
-    }
-
-    .date-cell .day-number {
-        font-size: 0.7rem;
-    }
-
-    .date-cell .event-indicator {
-        width: 4px;
-        height: 4px;
-        margin-top: 1px;
-    }
-
-    .date-cell .note-indicator {
-        width: 4px;
-        height: 4px;
-        margin-top: 1px;
-    }
-
-    .date-cell:hover:not(.empty) {
-        transform: scale(1.02);
-    }
-
-    .date-cell.today {
-        border-width: 1px;
-    }
-
-    .tooltip {
-        max-width: 200px;
-        min-width: 140px;
-        padding: 8px 12px;
-        font-size: 0.7rem;
-        border-radius: 10px;
-    }
-
-    .tooltip .event-title {
-        font-size: 0.75rem;
-    }
-
-    .tooltip .event-year {
-        font-size: 0.6rem;
-    }
-
-    .popup {
-        width: 95%;
-        max-width: 95%;
-        padding: 16px;
-        border-radius: 16px;
-        max-height: 90vh;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) scale(0.95) !important;
-    }
-
-    .popup.visible {
-        transform: translate(-50%, -50%) scale(1) !important;
-    }
-
-    #noteDateTitle {
-        font-size: 1.1rem;
-        margin-bottom: 12px;
-    }
-
-    .popup-section {
-        margin-bottom: 12px;
-    }
-
-    .popup-section h4 {
-        font-size: 0.7rem;
-        margin-bottom: 6px;
-    }
-
-    .events-list {
-        padding: 8px 10px;
-        min-height: 30px;
-    }
-
-    .events-list .event-item {
-        font-size: 0.75rem;
-        padding: 4px 0;
-    }
-
-    .no-events {
-        font-size: 0.7rem;
-    }
-
-    .note-input-row {
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    #noteInput {
-        font-size: 0.8rem;
-        padding: 8px 10px;
-        min-height: 36px;
-    }
-
-    #addNoteBtn {
-        width: 100%;
-        height: 36px;
-        font-size: 0.8rem;
-        padding: 6px 12px;
-    }
-
-    .notes-list {
-        max-height: 120px;
-        padding: 4px 8px;
-    }
-
-    .note-item {
-        padding: 4px 8px;
-    }
-
-    .note-item .note-text {
-        font-size: 0.75rem;
-    }
-
-    .note-item .note-delete-btn {
-        font-size: 0.7rem;
-        padding: 2px 6px;
-    }
-
-    .no-notes {
-        font-size: 0.7rem;
-        padding: 6px 0;
-    }
-
-    .clear-all-btn {
-        font-size: 0.65rem;
-        padding: 4px 12px;
-        width: 100%;
-        text-align: center;
-    }
-
-    #noteCount {
-        font-size: 0.8rem;
-    }
-
-    .close-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 1rem;
-        top: -4px;
-        right: -4px;
-    }
-
-    .overlay {
-        backdrop-filter: blur(4px);
-    }
-
-    .date-cell .long-press-hint {
-        display: block;
-        font-size: 0.4rem;
-        color: rgba(255, 255, 255, 0.2);
-        position: absolute;
-        bottom: 2px;
-        right: 4px;
-    }
-}
-
-@media (max-width: 400px) {
-    #app {
-        padding: 8px;
-        border-radius: 12px;
     }
 
     .nav-controls {
-        padding: 4px 8px;
-        gap: 2px;
+        padding: 4px 8px !important;
+        gap: 3px !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        border-radius: 30px !important;
+        margin-bottom: 12px !important;
     }
 
     .nav-controls button {
-        font-size: 1rem;
-        padding: 2px 6px;
-        min-width: 28px;
+        font-size: 1rem !important;
+        padding: 2px 6px !important;
+        min-width: 24px !important;
     }
 
     #currentMonthYear {
-        font-size: 0.75rem !important;
-        min-width: 70px;
+        font-size: 0.7rem !important;
+        min-width: 60px !important;
+        text-align: center !important;
     }
 
     #monthDisplay {
-        font-size: 0.7rem;
+        font-size: 0.65rem !important;
     }
 
     #yearDisplay {
-        font-size: 0.7rem;
-        min-width: 30px;
+        font-size: 0.65rem !important;
+        min-width: 25px !important;
     }
 
     #todayBtn {
-        font-size: 0.6rem !important;
-        padding: 2px 8px !important;
+        font-size: 0.5rem !important;
+        padding: 2px 6px !important;
     }
 
-    .date-cell {
-        min-height: 32px;
-        border-radius: 6px;
-        font-size: 0.6rem;
-    }
+    /* ================================================================ */
+    /* DAY HEADERS - MOBILE */
+    /* ================================================================ */
 
-    .date-cell .day-number {
-        font-size: 0.6rem;
-    }
-
-    .day-headers div {
-        font-size: 0.45rem;
-        padding: 2px 0;
-    }
-
-    .popup {
-        padding: 12px;
-        border-radius: 12px;
-        width: 98%;
-        max-width: 98%;
-    }
-
-    #noteInput {
-        font-size: 0.7rem;
-        padding: 6px 8px;
-        min-height: 30px;
-    }
-
-    #addNoteBtn {
-        font-size: 0.7rem;
-        height: 30px;
-    }
-
-    .note-item {
-        padding: 3px 6px;
-    }
-
-    .note-item .note-text {
-        font-size: 0.65rem;
-    }
-
-    .tooltip {
-        max-width: 180px;
-        min-width: 120px;
-        padding: 8px 10px;
-        font-size: 0.65rem;
-    }
-
-    .tooltip .event-title {
-        font-size: 0.7rem;
-    }
-
-    .tooltip .event-year {
-        font-size: 0.55rem;
-    }
-}
-
-@media (max-height: 500px) and (orientation: landscape) {
-    .date-cell {
-        min-height: 30px;
-    }
-
-    .popup {
-        max-height: 85vh;
-        padding: 12px;
-    }
-
-    #noteInput {
-        min-height: 30px;
-    }
-}
-/* ================================================================ */
-/* FORCE GRID CONSISTENCY - MOBILE FIX */
-/* ================================================================ */
-
-@media (max-width: 768px) {
-    /* Force calendar grid to be consistent */
-    .calendar-grid {
-        display: grid !important;
-        grid-template-columns: repeat(7, 1fr) !important;
-        gap: 2px !important;
-        padding: 2px !important;
-        width: 100% !important;
-    }
-
-    .date-cell {
-        aspect-ratio: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-radius: 8px !important;
-        cursor: pointer;
-        font-size: 0.7rem !important;
-        font-weight: 500;
-        color: #a090b0;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        min-height: 35px !important;
-        max-height: 50px !important;
-        padding: 2px !important;
-        background: rgba(255, 255, 255, 0.02);
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-        user-select: none;
-        -webkit-user-select: none;
-        width: 100% !important;
-        text-align: center;
-        box-sizing: border-box !important;
-    }
-
-    .date-cell .day-number {
-        font-size: 0.7rem !important;
-        line-height: 1;
-    }
-
-    .date-cell.empty {
-        opacity: 0.2;
-        background: transparent !important;
-    }
-
-    .date-cell.empty:hover {
-        transform: none !important;
-        box-shadow: none !important;
-        background: transparent !important;
-    }
-
-    .date-cell.today {
-        color: #b388ff !important;
-        font-weight: 700;
-        border: 1px solid rgba(150, 100, 255, 0.2) !important;
-    }
-
-    .date-cell .event-indicator {
-        width: 4px !important;
-        height: 4px !important;
-        margin-top: 1px !important;
-    }
-
-    .date-cell .note-indicator {
-        width: 4px !important;
-        height: 4px !important;
-        margin-top: 1px !important;
-    }
-
-    /* Day headers - fix alignment */
     .day-headers {
         display: grid !important;
         grid-template-columns: repeat(7, 1fr) !important;
@@ -1229,72 +869,689 @@ body.light-theme::-webkit-scrollbar-thumb {
 
     .day-headers div {
         text-align: center !important;
-        font-size: 0.5rem !important;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        color: #6a5a8a;
+        font-size: 0.45rem !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.3px !important;
+        color: #6a5a8a !important;
         padding: 3px 0 !important;
         width: 100% !important;
     }
 
-    /* Fix the app container */
-    #app {
-        padding: 10px !important;
-        max-width: 100% !important;
-        border-radius: 16px !important;
-        margin: 5px !important;
-        overflow: hidden !important;
+    /* ================================================================ */
+    /* CALENDAR GRID - MOBILE */
+    /* ================================================================ */
+
+    .calendar-grid {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 2px !important;
+        padding: 2px !important;
+        width: 100% !important;
     }
 
-    /* Navigation fixes */
-    .nav-controls {
-        padding: 4px 8px !important;
-        gap: 4px !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        border-radius: 30px !important;
-        margin-bottom: 15px !important;
-    }
+    /* ================================================================ */
+    /* DATE CELLS - MOBILE */
+    /* ================================================================ */
 
-    .nav-controls button {
-        font-size: 1.2rem !important;
-        padding: 2px 8px !important;
-        min-width: 28px !important;
-    }
-
-    #currentMonthYear {
-        font-size: 0.8rem !important;
-        min-width: 80px !important;
-        text-align: center !important;
-    }
-
-    #monthDisplay {
-        font-size: 0.75rem !important;
-    }
-
-    #yearDisplay {
-        font-size: 0.75rem !important;
-        min-width: 30px !important;
-    }
-
-    #todayBtn {
-        font-size: 0.6rem !important;
-        padding: 3px 8px !important;
-    }
-}
-
-/* For very small screens */
-@media (max-width: 400px) {
     .date-cell {
-        min-height: 28px !important;
-        max-height: 40px !important;
+        aspect-ratio: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 6px !important;
+        cursor: pointer !important;
         font-size: 0.6rem !important;
-        border-radius: 4px !important;
+        font-weight: 500 !important;
+        color: #a090b0 !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        position: relative !important;
+        min-height: 30px !important;
+        max-height: 50px !important;
+        padding: 2px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        -webkit-tap-highlight-color: transparent !important;
+        touch-action: manipulation !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        width: 100% !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
     }
 
     .date-cell .day-number {
         font-size: 0.6rem !important;
+        line-height: 1 !important;
+    }
+
+    .date-cell.empty {
+        opacity: 0.2 !important;
+        background: transparent !important;
+    }
+
+    .date-cell.empty:hover {
+        transform: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+
+    .date-cell:hover:not(.empty) {
+        background: rgba(150, 100, 255, 0.12) !important;
+        color: #d0c8ff !important;
+        transform: scale(1.02) !important;
+        box-shadow: 0 0 20px rgba(150, 100, 255, 0.08) !important;
+    }
+
+    .date-cell:active:not(.empty) {
+        transform: scale(0.92) !important;
+    }
+
+    .date-cell.today {
+        color: #b388ff !important;
+        font-weight: 700 !important;
+        border: 1px solid rgba(150, 100, 255, 0.2) !important;
+    }
+
+    .date-cell .event-indicator {
+        width: 3px !important;
+        height: 3px !important;
+        margin-top: 1px !important;
+        box-shadow: 0 0 8px rgba(124, 77, 255, 0.3) !important;
+    }
+
+    .date-cell .note-indicator {
+        width: 3px !important;
+        height: 3px !important;
+        margin-top: 1px !important;
+        box-shadow: 0 0 8px rgba(255, 171, 64, 0.2) !important;
+    }
+
+    .date-cell .long-press-hint {
+        display: block !important;
+        font-size: 0.3rem !important;
+        color: rgba(255, 255, 255, 0.15) !important;
+        position: absolute !important;
+        bottom: 1px !important;
+        right: 2px !important;
+    }
+
+    /* ================================================================ */
+    /* TOOLTIP - MOBILE */
+    /* ================================================================ */
+
+    .tooltip {
+        max-width: 180px !important;
+        min-width: 120px !important;
+        padding: 6px 10px !important;
+        font-size: 0.6rem !important;
+        border-radius: 8px !important;
+    }
+
+    .tooltip .event-title {
+        font-size: 0.65rem !important;
+    }
+
+    .tooltip .event-year {
+        font-size: 0.55rem !important;
+    }
+
+    /* ================================================================ */
+    /* POPUP - MOBILE */
+    /* ================================================================ */
+
+    .popup {
+        width: 95% !important;
+        max-width: 95% !important;
+        padding: 14px !important;
+        border-radius: 14px !important;
+        max-height: 90vh !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) scale(0.95) !important;
+    }
+
+    .popup.visible {
+        transform: translate(-50%, -50%) scale(1) !important;
+    }
+
+    #noteDateTitle {
+        font-size: 1rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    .popup-section {
+        margin-bottom: 10px !important;
+    }
+
+    .popup-section h4 {
+        font-size: 0.65rem !important;
+        margin-bottom: 4px !important;
+    }
+
+    .events-list {
+        padding: 6px 8px !important;
+        min-height: 25px !important;
+    }
+
+    .events-list .event-item {
+        font-size: 0.7rem !important;
+        padding: 3px 0 !important;
+    }
+
+    .no-events {
+        font-size: 0.65rem !important;
+    }
+
+    .note-input-row {
+        flex-direction: column !important;
+        gap: 4px !important;
+    }
+
+    #noteInput {
+        font-size: 0.7rem !important;
+        padding: 6px 8px !important;
+        min-height: 30px !important;
+    }
+
+    #addNoteBtn {
+        width: 100% !important;
+        height: 30px !important;
+        font-size: 0.7rem !important;
+        padding: 4px 8px !important;
+    }
+
+    .notes-list {
+        max-height: 100px !important;
+        padding: 3px 6px !important;
+    }
+
+    .note-item {
+        padding: 3px 6px !important;
+    }
+
+    .note-item .note-text {
+        font-size: 0.7rem !important;
+    }
+
+    .note-item .note-delete-btn {
+        font-size: 0.65rem !important;
+        padding: 1px 4px !important;
+    }
+
+    .no-notes {
+        font-size: 0.65rem !important;
+        padding: 4px 0 !important;
+    }
+
+    .clear-all-btn {
+        font-size: 0.6rem !important;
+        padding: 3px 10px !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    #noteCount {
+        font-size: 0.7rem !important;
+    }
+
+    .close-btn {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 0.9rem !important;
+        top: -3px !important;
+        right: -3px !important;
+    }
+
+    .overlay {
+        backdrop-filter: blur(3px) !important;
+    }
+}
+
+/* ================================================================ */
+/* VERY SMALL SCREENS (under 400px) */
+/* ================================================================ */
+
+@media (max-width: 400px) {
+    #app {
+        padding: 6px !important;
+        border-radius: 10px !important;
+    }
+
+    .header-row h1 {
+        font-size: 0.7rem !important;
+    }
+
+    .theme-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.7rem !important;
+    }
+
+    .nav-controls {
+        padding: 2px 4px !important;
+        gap: 2px !important;
+        border-radius: 20px !important;
+    }
+
+    .nav-controls button {
+        font-size: 0.8rem !important;
+        padding: 1px 4px !important;
+        min-width: 20px !important;
+    }
+
+    #currentMonthYear {
+        font-size: 0.6rem !important;
+        min-width: 50px !important;
+    }
+
+    #monthDisplay {
+        font-size: 0.55rem !important;
+    }
+
+    #yearDisplay {
+        font-size: 0.55rem !important;
+        min-width: 20px !important;
+    }
+
+    #todayBtn {
+        font-size: 0.45rem !important;
+        padding: 1px 4px !important;
+    }
+
+    .day-headers div {
+        font-size: 0.35rem !important;
+        padding: 2px 0 !important;
+    }
+
+    .calendar-grid {
+        gap: 1px !important;
+        padding: 1px !important;
+    }
+
+    .date-cell {
+        min-height: 24px !important;
+        max-height: 38px !important;
+        font-size: 0.5rem !important;
+        border-radius: 4px !important;
+    }
+
+    .date-cell .day-number {
+        font-size: 0.5rem !important;
+    }
+
+    .date-cell .event-indicator {
+        width: 2px !important;
+        height: 2px !important;
+    }
+
+    .date-cell .note-indicator {
+        width: 2px !important;
+        height: 2px !important;
+    }
+
+    .popup {
+        padding: 10px !important;
+        border-radius: 10px !important;
+    }
+
+    #noteInput {
+        font-size: 0.6rem !important;
+        padding: 4px 6px !important;
+        min-height: 24px !important;
+    }
+
+    #addNoteBtn {
+        font-size: 0.6rem !important;
+        height: 24px !important;
+    }
+
+    .note-item {
+        padding: 2px 4px !important;
+    }
+
+    .note-item .note-text {
+        font-size: 0.6rem !important;
+    }
+
+    .tooltip {
+        max-width: 140px !important;
+        min-width: 100px !important;
+        padding: 4px 6px !important;
+        font-size: 0.5rem !important;
+    }
+
+    .tooltip .event-title {
+        font-size: 0.55rem !important;
+    }
+
+    .tooltip .event-year {
+        font-size: 0.45rem !important;
+    }
+}
+
+/* ================================================================ */
+/* LANDSCAPE MODE */
+/* ================================================================ */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .date-cell {
+        min-height: 28px !important;
+        max-height: 40px !important;
+    }
+
+    .popup {
+        max-height: 80vh !important;
+        padding: 10px !important;
+    }
+
+    #noteInput {
+        min-height: 24px !important;
+    }
+
+    .nav-controls {
+        margin-bottom: 8px !important;
+        padding: 4px 8px !important;
+    }
+}
+/* ================================================================ */
+/* FINAL MOBILE FIX - OVERRIDE EVERYTHING */
+/* ================================================================ */
+
+/* Force all mobile devices to use proper grid */
+@media screen and (max-width: 768px) {
+    /* Force calendar grid */
+    .calendar-grid {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 2px !important;
+        padding: 2px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Force date cells */
+    .date-cell {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        min-height: 35px !important;
+        max-height: 45px !important;
+        padding: 2px !important;
+        font-size: 0.65rem !important;
+        border-radius: 6px !important;
+        aspect-ratio: 1 / 1 !important;
+        box-sizing: border-box !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        color: #a090b0 !important;
+        cursor: pointer !important;
+        position: relative !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        -webkit-tap-highlight-color: transparent !important;
+        touch-action: manipulation !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        overflow: hidden !important;
+    }
+
+    .date-cell .day-number {
+        font-size: 0.65rem !important;
+        line-height: 1 !important;
+        font-weight: 500 !important;
+    }
+
+    .date-cell.empty {
+        opacity: 0.15 !important;
+        background: transparent !important;
+        cursor: default !important;
+    }
+
+    .date-cell.today {
+        color: #b388ff !important;
+        font-weight: 700 !important;
+        border: 1px solid rgba(150, 100, 255, 0.3) !important;
+    }
+
+    .date-cell .event-indicator {
+        width: 4px !important;
+        height: 4px !important;
+        margin-top: 1px !important;
+        background: #7c4dff !important;
+        border-radius: 50% !important;
+        box-shadow: 0 0 10px rgba(124, 77, 255, 0.3) !important;
+        flex-shrink: 0 !important;
+    }
+
+    .date-cell .note-indicator {
+        width: 4px !important;
+        height: 4px !important;
+        margin-top: 1px !important;
+        background: #ffab40 !important;
+        border-radius: 2px !important;
+        box-shadow: 0 0 10px rgba(255, 171, 64, 0.2) !important;
+        flex-shrink: 0 !important;
+    }
+
+    .date-cell .long-press-hint {
+        display: block !important;
+        font-size: 0.3rem !important;
+        color: rgba(255, 255, 255, 0.1) !important;
+        position: absolute !important;
+        bottom: 1px !important;
+        right: 2px !important;
+    }
+
+    /* Force day headers */
+    .day-headers {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 2px !important;
+        padding: 0 2px !important;
+        margin-bottom: 4px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .day-headers div {
+        text-align: center !important;
+        font-size: 0.5rem !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.3px !important;
+        color: #6a5a8a !important;
+        padding: 3px 0 !important;
+        width: 100% !important;
+    }
+
+    /* Fix navigation */
+    .nav-controls {
+        padding: 4px 8px !important;
+        gap: 3px !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        border-radius: 30px !important;
+        margin-bottom: 12px !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    .nav-controls button {
+        font-size: 1rem !important;
+        padding: 2px 6px !important;
+        min-width: 24px !important;
+        background: none !important;
+        border: none !important;
+        color: #b0b0d0 !important;
+        cursor: pointer !important;
+    }
+
+    #currentMonthYear {
+        font-size: 0.7rem !important;
+        min-width: 60px !important;
+        text-align: center !important;
+        color: #d0c8f0 !important;
+    }
+
+    #monthDisplay {
+        font-size: 0.65rem !important;
+    }
+
+    #yearDisplay {
+        font-size: 0.65rem !important;
+        min-width: 25px !important;
+    }
+
+    #todayBtn {
+        font-size: 0.5rem !important;
+        padding: 2px 8px !important;
+        background: rgba(150, 100, 255, 0.15) !important;
+        border-radius: 20px !important;
+        color: #b388ff !important;
+    }
+
+    /* Fix app container */
+    #app {
+        padding: 8px !important;
+        border-radius: 14px !important;
+        margin: 4px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        overflow: hidden !important;
+    }
+
+    .header-row h1 {
+        font-size: 0.85rem !important;
+        margin-bottom: 0 !important;
+    }
+
+    .theme-btn {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Fix popup */
+    .popup {
+        width: 95% !important;
+        max-width: 95% !important;
+        padding: 14px !important;
+        border-radius: 14px !important;
+        max-height: 90vh !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) scale(0.95) !important;
+    }
+
+    .popup.visible {
+        transform: translate(-50%, -50%) scale(1) !important;
+    }
+
+    #noteDateTitle {
+        font-size: 1rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    .popup-section {
+        margin-bottom: 10px !important;
+    }
+
+    .popup-section h4 {
+        font-size: 0.65rem !important;
+        margin-bottom: 4px !important;
+    }
+
+    .events-list {
+        padding: 6px 8px !important;
+        min-height: 25px !important;
+    }
+
+    .events-list .event-item {
+        font-size: 0.7rem !important;
+        padding: 3px 0 !important;
+    }
+
+    .note-input-row {
+        flex-direction: column !important;
+        gap: 4px !important;
+    }
+
+    #noteInput {
+        font-size: 0.7rem !important;
+        padding: 6px 8px !important;
+        min-height: 30px !important;
+    }
+
+    #addNoteBtn {
+        width: 100% !important;
+        height: 30px !important;
+        font-size: 0.7rem !important;
+        padding: 4px 8px !important;
+    }
+
+    .notes-list {
+        max-height: 100px !important;
+        padding: 3px 6px !important;
+    }
+
+    .note-item {
+        padding: 3px 6px !important;
+    }
+
+    .note-item .note-text {
+        font-size: 0.7rem !important;
+    }
+
+    .note-item .note-delete-btn {
+        font-size: 0.65rem !important;
+        padding: 1px 4px !important;
+    }
+
+    .clear-all-btn {
+        font-size: 0.6rem !important;
+        padding: 3px 10px !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .close-btn {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 0.9rem !important;
+        top: -3px !important;
+        right: -3px !important;
+    }
+
+    .tooltip {
+        max-width: 180px !important;
+        min-width: 120px !important;
+        padding: 6px 10px !important;
+        font-size: 0.6rem !important;
+        border-radius: 8px !important;
+    }
+
+    .tooltip .event-title {
+        font-size: 0.65rem !important;
+    }
+
+    .tooltip .event-year {
+        font-size: 0.55rem !important;
+    }
+}
+
+/* Extra small phones (under 400px) */
+@media screen and (max-width: 400px) {
+    .date-cell {
+        min-height: 28px !important;
+        max-height: 38px !important;
+        font-size: 0.55rem !important;
+        border-radius: 4px !important;
+    }
+
+    .date-cell .day-number {
+        font-size: 0.55rem !important;
     }
 
     .day-headers div {
@@ -1314,7 +1571,73 @@ body.light-theme::-webkit-scrollbar-thumb {
     }
 
     #app {
-        padding: 6px !important;
+        padding: 4px !important;
         border-radius: 10px !important;
+    }
+
+    .header-row h1 {
+        font-size: 0.7rem !important;
+    }
+
+    .theme-btn {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.7rem !important;
+    }
+
+    .nav-controls {
+        padding: 2px 4px !important;
+        gap: 2px !important;
+    }
+
+    .nav-controls button {
+        font-size: 0.8rem !important;
+        padding: 1px 4px !important;
+        min-width: 20px !important;
+    }
+
+    #currentMonthYear {
+        font-size: 0.55rem !important;
+        min-width: 50px !important;
+    }
+
+    #todayBtn {
+        font-size: 0.45rem !important;
+        padding: 1px 4px !important;
+    }
+
+    .popup {
+        padding: 10px !important;
+        border-radius: 10px !important;
+    }
+
+    #noteInput {
+        font-size: 0.6rem !important;
+        padding: 4px 6px !important;
+        min-height: 24px !important;
+    }
+
+    #addNoteBtn {
+        font-size: 0.6rem !important;
+        height: 24px !important;
+    }
+
+    .note-item .note-text {
+        font-size: 0.6rem !important;
+    }
+
+    .tooltip {
+        max-width: 140px !important;
+        min-width: 100px !important;
+        padding: 4px 6px !important;
+        font-size: 0.5rem !important;
+    }
+
+    .tooltip .event-title {
+        font-size: 0.55rem !important;
+    }
+
+    .tooltip .event-year {
+        font-size: 0.45rem !important;
     }
 }
