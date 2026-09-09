@@ -1641,3 +1641,99 @@ body.light-theme::-webkit-scrollbar-thumb {
         font-size: 0.45rem !important;
     }
 }
+/* ================================================================ */
+/* URGENT MOBILE GRID FIX */
+/* ================================================================ */
+
+/* Force grid to show exactly 7 columns */
+.calendar-grid {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    grid-template-rows: auto !important;
+    gap: 2px !important;
+    padding: 2px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Force each cell to stay in its column */
+.date-cell {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    aspect-ratio: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-height: 35px !important;
+    max-height: 45px !important;
+    padding: 2px !important;
+    font-size: 0.65rem !important;
+    border-radius: 6px !important;
+    box-sizing: border-box !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    color: #a090b0 !important;
+    cursor: pointer !important;
+    position: relative !important;
+    overflow: hidden !important;
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+}
+
+/* Fix for today's date */
+.date-cell.today {
+    color: #b388ff !important;
+    font-weight: 700 !important;
+    border: 1px solid rgba(150, 100, 255, 0.3) !important;
+}
+
+/* Empty cells should not break the grid */
+.date-cell.empty {
+    opacity: 0.15 !important;
+    background: transparent !important;
+    cursor: default !important;
+}
+
+/* Day headers - match the grid */
+.day-headers {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 2px !important;
+    padding: 0 2px !important;
+    margin-bottom: 4px !important;
+    width: 100% !important;
+}
+
+.day-headers div {
+    text-align: center !important;
+    font-size: 0.5rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    color: #6a5a8a !important;
+    padding: 3px 0 !important;
+    width: 100% !important;
+}
+
+/* Indicators should be tiny on mobile */
+.date-cell .event-indicator {
+    width: 4px !important;
+    height: 4px !important;
+    margin-top: 1px !important;
+    background: #7c4dff !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 8px rgba(124, 77, 255, 0.3) !important;
+    flex-shrink: 0 !important;
+}
+
+.date-cell .note-indicator {
+    width: 4px !important;
+    height: 4px !important;
+    margin-top: 1px !important;
+    background: #ffab40 !important;
+    border-radius: 2px !important;
+    box-shadow: 0 0 8px rgba(255, 171, 64, 0.2) !important;
+    flex-shrink: 0 !important;
+}
