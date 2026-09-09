@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentSelectedDate = null;
 
     // ================================================================
-    // RENDER CALENDAR
+    // RENDER CALENDAR - COMPLETE FIXED VERSION
     // ================================================================
 
     function renderCalendar() {
@@ -163,6 +163,10 @@ document.addEventListener('DOMContentLoaded', function () {
         ];
         monthDisplay.textContent = months[currentMonth];
         yearDisplay.textContent = currentYear;
+
+        // Clear any existing grid styles
+        grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
+        grid.style.display = 'grid';
 
         // PREVIOUS MONTH DAYS (Padding)
         const prevMonthStart = daysInPrevMonth - firstDay + 1;
@@ -235,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             // ================================================================
-            // LONG PRESS - Tooltip (Mobile)
+            // LONG PRESS - Tooltip (Mobile) - FIXED
             // ================================================================
             let pressTimer = null;
             cell.addEventListener('touchstart', function (e) {
@@ -243,7 +247,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (evts.length > 0) {
                     pressTimer = setTimeout(function () {
                         e.preventDefault();
-                        showTooltip(e, evts);
+                        // Pass the cell as currentTarget
+                        const fakeEvent = {
+                            currentTarget: cell,
+                            target: cell,
+                            touches: e.touches,
+                            clientX: e.touches ? e.touches[0].clientX : 0,
+                            clientY: e.touches ? e.touches[0].clientY : 0,
+                        };
+                        showTooltip(fakeEvent, evts);
                     }, 800);
                 }
             });
@@ -485,13 +497,32 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltip.innerHTML = html;
         tooltip.classList.add('visible');
 
-        // Get the cell element
+        // Get the cell element - FIXED for touch events
         let cell = event.currentTarget;
         if (!cell && event.target) {
-            cell = event.target.closest('.date-cell');
+            cell = event.target.closest ? event.target.closest('.date-cell') : null;
         }
         if (!cell) {
+            // If still no cell, try to find it from the touch event
+            const touch = event.touches ? event.touches[0] : null;
+            if (touch) {
+                const elements = document.elementsFromPoint(touch.clientX, touch.clientY);
+                for (let el of elements) {
+                    if (el.classList && el.classList.contains('date-cell')) {
+                        cell = el;
+                        break;
+                    }
+                }
+            }
+        }
+        if (!cell) {
+            // Fallback: use the target
             cell = event.target;
+        }
+
+        if (!cell) {
+            hideTooltip();
+            return;
         }
 
         const rect = cell.getBoundingClientRect();
@@ -500,7 +531,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let left = rect.left + rect.width / 2 - 140;
         let top = rect.top - 80;
 
-        const tooltipRect = tooltip.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
