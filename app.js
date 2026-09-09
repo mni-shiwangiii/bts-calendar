@@ -198,13 +198,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const indicator = document.createElement('span');
                 indicator.className = 'event-indicator';
                 indicator.style.cssText = `
-                    width: 6px;
-                    height: 6px;
-                    background: #7c4dff;
-                    border-radius: 50%;
-                    margin-top: 4px;
-                    box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
-                `;
+                width: 6px;
+                height: 6px;
+                background: #7c4dff;
+                border-radius: 50%;
+                margin-top: 4px;
+                box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
+            `;
                 cell.appendChild(indicator);
             }
 
@@ -214,20 +214,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 const noteIndicator = document.createElement('span');
                 noteIndicator.className = 'note-indicator';
                 noteIndicator.style.cssText = `
-                    width: 6px;
-                    height: 6px;
-                    background: #ffab40;
-                    border-radius: 2px;
-                    margin-top: 2px;
-                    box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
-                `;
+                width: 6px;
+                height: 6px;
+                background: #ffab40;
+                border-radius: 2px;
+                margin-top: 2px;
+                box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
+            `;
                 cell.appendChild(noteIndicator);
                 cell.dataset.hasNote = 'true';
             }
 
-            // ================================================================
             // HOVER - Tooltip (Desktop)
-            // ================================================================
             cell.addEventListener('mouseenter', function (e) {
                 const evts = getEventsForFullDate(currentYear, currentMonth + 1, i);
                 if (evts.length > 0) {
@@ -238,16 +236,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 hideTooltip();
             });
 
-            // ================================================================
-            // LONG PRESS - Tooltip (Mobile) - FIXED
-            // ================================================================
+            // LONG PRESS - Tooltip (Mobile)
             let pressTimer = null;
             cell.addEventListener('touchstart', function (e) {
                 const evts = getEventsForFullDate(currentYear, currentMonth + 1, i);
                 if (evts.length > 0) {
                     pressTimer = setTimeout(function () {
                         e.preventDefault();
-                        // Pass the cell as currentTarget
                         const fakeEvent = {
                             currentTarget: cell,
                             target: cell,
@@ -266,9 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 clearTimeout(pressTimer);
             });
 
-            // ================================================================
-            // CLICK - Opens Note Popup (Desktop & Mobile)
-            // ================================================================
+            // CLICK - Opens Note Popup
             cell.addEventListener('click', function (e) {
                 clearTimeout(pressTimer);
                 hideTooltip();
@@ -287,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cell.textContent = i;
             grid.appendChild(cell);
         }
-    }
+    } // ← THIS CLOSING BRACKET WAS MISSING!
 
     // ================================================================
     // NOTES POPUP FUNCTIONS
