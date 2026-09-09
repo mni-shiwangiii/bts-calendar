@@ -1313,3 +1313,110 @@ body.light-theme::-webkit-scrollbar-thumb {
         max-width: 1000px !important;
     }
 }
+/* ================================================================ */
+/* MOBILE TOOLTIP - VERTICAL MODE FIX */
+/* ================================================================ */
+
+@media (max-width: 768px) {
+    .tooltip {
+        max-width: 160px !important;
+        min-width: 100px !important;
+        padding: 6px 10px !important;
+        font-size: 0.55rem !important;
+        border-radius: 8px !important;
+        pointer-events: none !important;
+        z-index: 1001 !important;
+        transform: translateY(0) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        position: fixed !important;
+        left: auto !important;
+        right: auto !important;
+    }
+
+    .tooltip.visible {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+    }
+
+    .tooltip .event-title {
+        font-size: 0.6rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .tooltip .event-year {
+        font-size: 0.5rem !important;
+        padding: 0 6px !important;
+        margin-top: 2px !important;
+    }
+
+    /* Arrow */
+    .tooltip::after {
+        bottom: -5px !important;
+        border-left: 5px solid transparent !important;
+        border-right: 5px solid transparent !important;
+        border-top: 5px solid rgba(20, 15, 40, 0.95) !important;
+        content: '' !important;
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    .tooltip.below::after {
+        top: -5px !important;
+        bottom: auto !important;
+        border-top: none !important;
+        border-bottom: 5px solid rgba(20, 15, 40, 0.95) !important;
+    }
+}
+/* ================================================================ */
+/* MOBILE VERTICAL MODE - POPUP FIX */
+/* ================================================================ */
+
+@media (max-width: 768px) and (orientation: portrait) {
+    .date-cell {
+        min-height: 35px !important;
+        max-height: 45px !important;
+        font-size: 0.6rem !important;
+        padding: 2px !important;
+    }
+
+    .date-cell .day-number {
+        font-size: 0.6rem !important;
+    }
+
+    .date-cell .event-indicator {
+        width: 3px !important;
+        height: 3px !important;
+        margin-top: 1px !important;
+    }
+
+    .date-cell .note-indicator {
+        width: 3px !important;
+        height: 3px !important;
+        margin-top: 1px !important;
+    }
+
+    .calendar-grid {
+        gap: 2px !important;
+        padding: 2px !important;
+    }
+
+    .tooltip {
+        max-width: 140px !important;
+        min-width: 80px !important;
+        padding: 4px 8px !important;
+        font-size: 0.5rem !important;
+        border-radius: 6px !important;
+    }
+
+    .tooltip .event-title {
+        font-size: 0.55rem !important;
+    }
+
+    .tooltip .event-year {
+        font-size: 0.45rem !important;
+        padding: 0 4px !important;
+    }
+}

@@ -1,4 +1,3 @@
-
 // ================================================================
 // WRAP EVERYTHING IN DOMContentLoaded
 // ================================================================
@@ -479,9 +478,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let html = '';
         events.forEach((ev) => {
             html += `
-                <div class="event-title">📌 ${ev.description}</div>
-                <span class="event-year">${ev.year}</span>
-            `;
+            <div class="event-title">📌 ${ev.description}</div>
+            <span class="event-year">${ev.year}</span>
+        `;
         });
 
         tooltip.innerHTML = html;
@@ -515,17 +514,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const rect = cell.getBoundingClientRect();
 
-        let left = rect.left + rect.width / 2 - 140;
-        let top = rect.top - 80;
+        // Position tooltip ABOVE the cell
+        let left = rect.left + rect.width / 2 - 100; // Center horizontally
+        let top = rect.top - 70; // Above the cell
 
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
+        // Horizontal adjustment - FIXED for mobile
         if (left < 10) left = 10;
-        if (left + 280 > viewportWidth - 10) {
-            left = viewportWidth - 290;
+        if (left + 200 > viewportWidth - 10) {
+            left = viewportWidth - 210;
         }
 
+        // Vertical adjustment - if not enough space above, show below
         if (top < 10) {
             top = rect.bottom + 10;
             tooltip.classList.add('below');
