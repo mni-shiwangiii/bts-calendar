@@ -518,24 +518,47 @@ document.addEventListener('DOMContentLoaded', function () {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        // Position tooltip ABOVE the cell
-        // Use the cell's position, not the screen center
-        let left = rect.left + rect.width / 2 - 90;
-        let top = rect.top - 65;
+        // Tooltip width (approx)
+        const tooltipWidth = 180;
+        const tooltipHeight = 80;
 
-        // Keep tooltip within viewport
-        if (left < 10) left = 10;
-        if (left + 180 > viewportWidth - 10) {
-            left = viewportWidth - 190;
+        // Position tooltip ABOVE the cell
+        let left = rect.left + rect.width / 2 - tooltipWidth / 2;
+        let top = rect.top - tooltipHeight - 5;
+
+        // ================================================================
+        // FIX FOR EDGE COLUMNS - Keep tooltip in viewport
+        // ================================================================
+
+        // Horizontal adjustments
+        if (left < 8) {
+            // If tooltip goes off-screen left, align it to the right of the cell
+            left = rect.left + 5;
+        }
+        if (left + tooltipWidth > viewportWidth - 8) {
+            // If tooltip goes off-screen right, align it to the left of the cell
+            left = rect.right - tooltipWidth - 5;
         }
 
-        // If not enough space above, show below
+        // If still off-screen, center it and shrink
+        if (left < 5) left = 5;
+        if (left + tooltipWidth > viewportWidth - 5) {
+            left = viewportWidth - tooltipWidth - 5;
+        }
+
+        // Vertical adjustment - if not enough space above, show below
         if (top < 10) {
-            top = rect.bottom + 10;
+            top = rect.bottom + 5;
             tooltip.classList.add('below');
         } else {
             tooltip.classList.remove('below');
         }
+
+        // Final safety check
+        if (top + tooltipHeight > viewportHeight - 10) {
+            top = viewportHeight - tooltipHeight - 10;
+        }
+        if (top < 10) top = 10;
 
         // Apply position
         tooltip.style.left = left + 'px';
