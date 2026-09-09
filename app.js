@@ -164,10 +164,6 @@ document.addEventListener('DOMContentLoaded', function () {
         monthDisplay.textContent = months[currentMonth];
         yearDisplay.textContent = currentYear;
 
-        // Clear any existing grid styles
-        grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
-        grid.style.display = 'grid';
-
         // PREVIOUS MONTH DAYS (Padding)
         const prevMonthStart = daysInPrevMonth - firstDay + 1;
         for (let i = prevMonthStart; i <= daysInPrevMonth; i++) {
@@ -198,13 +194,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const indicator = document.createElement('span');
                 indicator.className = 'event-indicator';
                 indicator.style.cssText = `
-                width: 6px;
-                height: 6px;
-                background: #7c4dff;
-                border-radius: 50%;
-                margin-top: 4px;
-                box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
-            `;
+                    width: 6px;
+                    height: 6px;
+                    background: #7c4dff;
+                    border-radius: 50%;
+                    margin-top: 4px;
+                    box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
+                `;
                 cell.appendChild(indicator);
             }
 
@@ -214,13 +210,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const noteIndicator = document.createElement('span');
                 noteIndicator.className = 'note-indicator';
                 noteIndicator.style.cssText = `
-                width: 6px;
-                height: 6px;
-                background: #ffab40;
-                border-radius: 2px;
-                margin-top: 2px;
-                box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
-            `;
+                    width: 6px;
+                    height: 6px;
+                    background: #ffab40;
+                    border-radius: 2px;
+                    margin-top: 2px;
+                    box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
+                `;
                 cell.appendChild(noteIndicator);
                 cell.dataset.hasNote = 'true';
             }
@@ -280,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cell.textContent = i;
             grid.appendChild(cell);
         }
-    } // ← THIS CLOSING BRACKET WAS MISSING!
+    }
 
     // ================================================================
     // NOTES POPUP FUNCTIONS
@@ -475,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ================================================================
-    // TOOLTIP FUNCTIONS - FIXED (Appears above date cell)
+    // TOOLTIP FUNCTIONS
     // ================================================================
 
     function showTooltip(event, events) {
@@ -490,13 +486,12 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltip.innerHTML = html;
         tooltip.classList.add('visible');
 
-        // Get the cell element - FIXED for touch events
+        // Get the cell element
         let cell = event.currentTarget;
         if (!cell && event.target) {
             cell = event.target.closest ? event.target.closest('.date-cell') : null;
         }
         if (!cell) {
-            // If still no cell, try to find it from the touch event
             const touch = event.touches ? event.touches[0] : null;
             if (touch) {
                 const elements = document.elementsFromPoint(touch.clientX, touch.clientY);
@@ -509,7 +504,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         if (!cell) {
-            // Fallback: use the target
             cell = event.target;
         }
 
@@ -520,20 +514,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const rect = cell.getBoundingClientRect();
 
-        // Position tooltip ABOVE the cell
         let left = rect.left + rect.width / 2 - 140;
         let top = rect.top - 80;
 
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        // Horizontal adjustment
         if (left < 10) left = 10;
         if (left + 280 > viewportWidth - 10) {
             left = viewportWidth - 290;
         }
 
-        // Vertical adjustment - if not enough space above, show below
         if (top < 10) {
             top = rect.bottom + 10;
             tooltip.classList.add('below');
