@@ -1222,3 +1222,97 @@ body.light-theme::-webkit-scrollbar-thumb {
         min-height: 30px;
     }
 }
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    padding: 4px;
+}
+
+.date-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary, #a090b0);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    min-height: 60px;
+    padding: 4px;
+    background: var(--cell-bg, rgba(255, 255, 255, 0.02));
+}
+
+.date-cell.empty {
+    cursor: default;
+    opacity: 0.2;
+    background: transparent;
+}
+
+.date-cell.empty:hover {
+    transform: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+.date-cell:hover:not(.empty) {
+    background: var(--cell-hover, rgba(150, 100, 255, 0.12));
+    color: var(--text-light, #d0c8ff);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(150, 100, 255, 0.08);
+}
+
+.date-cell.today {
+    color: var(--text-glow, #b388ff);
+    font-weight: 700;
+    border: 1px solid var(--cell-today-border, rgba(150, 100, 255, 0.2));
+}
+
+.date-cell .day-number {
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.date-cell .event-indicator {
+    width: 6px;
+    height: 6px;
+    background: #7c4dff;
+    border-radius: 50%;
+    margin-top: 4px;
+    box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
+}
+
+.date-cell .note-indicator {
+    width: 6px;
+    height: 6px;
+    background: #ffab40;
+    border-radius: 2px;
+    margin-top: 2px;
+    box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
+}
+
+/* ================================================================ */
+/* DAY HEADERS - FIXED */
+/* ================================================================ */
+
+.day-headers {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+.day-headers div {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted, #6a5a8a);
+    padding: 8px 0;
+}
