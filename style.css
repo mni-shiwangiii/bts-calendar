@@ -1143,3 +1143,73 @@ body.light-theme::-webkit-scrollbar-thumb {
         min-height: 30px;
     }
 }
+/* ================================================================ */
+/* CALENDAR GRID */
+/* ================================================================ */
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    padding: 4px;
+}
+
+/* ================================================================ */
+/* DATE CELLS */
+/* ================================================================ */
+
+.date-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #a090b0;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    min-height: 60px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.02);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.date-cell .day-number {
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.date-cell.empty {
+    cursor: default;
+    opacity: 0.2;
+    background: transparent;
+}
+
+.date-cell.empty:hover {
+    transform: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+.date-cell:hover:not(.empty) {
+    background: rgba(150, 100, 255, 0.12);
+    color: #d0c8ff;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(150, 100, 255, 0.08);
+}
+
+.date-cell:active:not(.empty) {
+    transform: scale(0.95);
+}
+
+.date-cell.today {
+    color: #b388ff;
+    font-weight: 700;
+    border: 1px solid rgba(150, 100, 255, 0.2);
+}

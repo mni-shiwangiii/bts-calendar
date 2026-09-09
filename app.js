@@ -183,7 +183,11 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 1; i <= daysInMonth; i++) {
             const cell = document.createElement('div');
             cell.className = 'date-cell';
-            cell.textContent = i;
+
+            const dayNumber = document.createElement('span');
+            dayNumber.className = 'day-number';
+            dayNumber.textContent = i;
+            cell.appendChild(dayNumber);
 
             // Check if today
             if (
@@ -200,13 +204,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const indicator = document.createElement('span');
                 indicator.className = 'event-indicator';
                 indicator.style.cssText = `
-                    width: 6px;
-                    height: 6px;
-                    background: #7c4dff;
-                    border-radius: 50%;
-                    margin-top: 4px;
-                    box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
-                `;
+                width: 6px;
+                height: 6px;
+                background: #7c4dff;
+                border-radius: 50%;
+                margin-top: 4px;
+                box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
+            `;
                 cell.appendChild(indicator);
             }
 
@@ -231,10 +235,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
                 if (events.length > 0) {
                     pressTimer = setTimeout(function () {
-                        // Prevent tap from triggering
                         e.preventDefault();
                         showTooltip(e, events);
-                    }, 800); // 800ms = long press
+                    }, 800);
                 }
             });
             cell.addEventListener('touchmove', function (e) {
@@ -245,10 +248,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             // ================================================================
-            // CLICK / TAP - Opens Note Popup (Both Desktop & Mobile)
+            // CLICK / TAP - Opens Note Popup
             // ================================================================
             cell.addEventListener('click', function (e) {
-                // Prevent click from triggering tooltip
                 clearTimeout(this._pressTimer);
                 openNotePopup(currentYear, currentMonth + 1, i);
             });
@@ -259,13 +261,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const noteIndicator = document.createElement('span');
                 noteIndicator.className = 'note-indicator';
                 noteIndicator.style.cssText = `
-                    width: 6px;
-                    height: 6px;
-                    background: #ffab40;
-                    border-radius: 2px;
-                    margin-top: 2px;
-                    box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
-                `;
+                width: 6px;
+                height: 6px;
+                background: #ffab40;
+                border-radius: 2px;
+                margin-top: 2px;
+                box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
+            `;
                 cell.appendChild(noteIndicator);
                 cell.dataset.hasNote = 'true';
             }
@@ -285,7 +287,6 @@ document.addEventListener('DOMContentLoaded', function () {
             grid.appendChild(cell);
         }
     }
-
     // ================================================================
     // NOTES POPUP FUNCTIONS
     // ================================================================
