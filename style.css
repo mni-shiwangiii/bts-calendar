@@ -797,7 +797,7 @@ body.light-theme::-webkit-scrollbar-thumb {
 }
 
 /* ================================================================ */
-/* MOBILE RESPONSIVE - COMPLETE FIX */
+/* MOBILE RESPONSIVE - COMBINED */
 /* ================================================================ */
 
 @media (max-width: 768px) {
@@ -854,10 +854,6 @@ body.light-theme::-webkit-scrollbar-thumb {
         padding: 2px 6px !important;
     }
 
-    /* ================================================================ */
-    /* DAY HEADERS - MOBILE */
-    /* ================================================================ */
-
     .day-headers {
         display: grid !important;
         grid-template-columns: repeat(7, 1fr) !important;
@@ -878,10 +874,6 @@ body.light-theme::-webkit-scrollbar-thumb {
         width: 100% !important;
     }
 
-    /* ================================================================ */
-    /* CALENDAR GRID - MOBILE */
-    /* ================================================================ */
-
     .calendar-grid {
         display: grid !important;
         grid-template-columns: repeat(7, 1fr) !important;
@@ -889,10 +881,6 @@ body.light-theme::-webkit-scrollbar-thumb {
         padding: 2px !important;
         width: 100% !important;
     }
-
-    /* ================================================================ */
-    /* DATE CELLS - MOBILE */
-    /* ================================================================ */
 
     .date-cell {
         aspect-ratio: 1 !important;
@@ -931,23 +919,6 @@ body.light-theme::-webkit-scrollbar-thumb {
         background: transparent !important;
     }
 
-    .date-cell.empty:hover {
-        transform: none !important;
-        box-shadow: none !important;
-        background: transparent !important;
-    }
-
-    .date-cell:hover:not(.empty) {
-        background: rgba(150, 100, 255, 0.12) !important;
-        color: #d0c8ff !important;
-        transform: scale(1.02) !important;
-        box-shadow: 0 0 20px rgba(150, 100, 255, 0.08) !important;
-    }
-
-    .date-cell:active:not(.empty) {
-        transform: scale(0.92) !important;
-    }
-
     .date-cell.today {
         color: #b388ff !important;
         font-weight: 700 !important;
@@ -977,30 +948,49 @@ body.light-theme::-webkit-scrollbar-thumb {
         right: 2px !important;
     }
 
-    /* ================================================================ */
-    /* TOOLTIP - MOBILE */
-    /* ================================================================ */
-
+    /* Mobile Tooltip */
     .tooltip {
-        max-width: 180px !important;
-        min-width: 120px !important;
+        max-width: 160px !important;
+        min-width: 100px !important;
         padding: 6px 10px !important;
-        font-size: 0.6rem !important;
+        font-size: 0.55rem !important;
         border-radius: 8px !important;
+        pointer-events: none !important;
+        z-index: 1001 !important;
+        transform: translateY(0) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .tooltip.visible {
+        transform: translateY(0) !important;
     }
 
     .tooltip .event-title {
-        font-size: 0.65rem !important;
+        font-size: 0.6rem !important;
+        line-height: 1.2 !important;
     }
 
     .tooltip .event-year {
-        font-size: 0.55rem !important;
+        font-size: 0.5rem !important;
+        padding: 0 6px !important;
+        margin-top: 2px !important;
     }
 
-    /* ================================================================ */
-    /* POPUP - MOBILE */
-    /* ================================================================ */
+    .tooltip::after {
+        bottom: -5px !important;
+        border-left: 5px solid transparent !important;
+        border-right: 5px solid transparent !important;
+        border-top: 5px solid rgba(20, 15, 40, 0.95) !important;
+    }
 
+    .tooltip.below::after {
+        top: -5px !important;
+        bottom: auto !important;
+        border-top: none !important;
+        border-bottom: 5px solid rgba(20, 15, 40, 0.95) !important;
+    }
+
+    /* Mobile Popup */
     .popup {
         width: 95% !important;
         max-width: 95% !important;
@@ -1255,493 +1245,11 @@ body.light-theme::-webkit-scrollbar-thumb {
         padding: 4px 8px !important;
     }
 }
+
 /* ================================================================ */
-/* FINAL MOBILE FIX - OVERRIDE EVERYTHING */
-/* ================================================================ */
-
-/* Force all mobile devices to use proper grid */
-@media screen and (max-width: 768px) {
-    /* Force calendar grid */
-    .calendar-grid {
-        display: grid !important;
-        grid-template-columns: repeat(7, 1fr) !important;
-        gap: 2px !important;
-        padding: 2px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    /* Force date cells */
-    .date-cell {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100% !important;
-        min-height: 35px !important;
-        max-height: 45px !important;
-        padding: 2px !important;
-        font-size: 0.65rem !important;
-        border-radius: 6px !important;
-        aspect-ratio: 1 / 1 !important;
-        box-sizing: border-box !important;
-        background: rgba(255, 255, 255, 0.02) !important;
-        color: #a090b0 !important;
-        cursor: pointer !important;
-        position: relative !important;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        -webkit-tap-highlight-color: transparent !important;
-        touch-action: manipulation !important;
-        user-select: none !important;
-        -webkit-user-select: none !important;
-        overflow: hidden !important;
-    }
-
-    .date-cell .day-number {
-        font-size: 0.65rem !important;
-        line-height: 1 !important;
-        font-weight: 500 !important;
-    }
-
-    .date-cell.empty {
-        opacity: 0.15 !important;
-        background: transparent !important;
-        cursor: default !important;
-    }
-
-    .date-cell.today {
-        color: #b388ff !important;
-        font-weight: 700 !important;
-        border: 1px solid rgba(150, 100, 255, 0.3) !important;
-    }
-
-    .date-cell .event-indicator {
-        width: 4px !important;
-        height: 4px !important;
-        margin-top: 1px !important;
-        background: #7c4dff !important;
-        border-radius: 50% !important;
-        box-shadow: 0 0 10px rgba(124, 77, 255, 0.3) !important;
-        flex-shrink: 0 !important;
-    }
-
-    .date-cell .note-indicator {
-        width: 4px !important;
-        height: 4px !important;
-        margin-top: 1px !important;
-        background: #ffab40 !important;
-        border-radius: 2px !important;
-        box-shadow: 0 0 10px rgba(255, 171, 64, 0.2) !important;
-        flex-shrink: 0 !important;
-    }
-
-    .date-cell .long-press-hint {
-        display: block !important;
-        font-size: 0.3rem !important;
-        color: rgba(255, 255, 255, 0.1) !important;
-        position: absolute !important;
-        bottom: 1px !important;
-        right: 2px !important;
-    }
-
-    /* Force day headers */
-    .day-headers {
-        display: grid !important;
-        grid-template-columns: repeat(7, 1fr) !important;
-        gap: 2px !important;
-        padding: 0 2px !important;
-        margin-bottom: 4px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    .day-headers div {
-        text-align: center !important;
-        font-size: 0.5rem !important;
-        font-weight: 600 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.3px !important;
-        color: #6a5a8a !important;
-        padding: 3px 0 !important;
-        width: 100% !important;
-    }
-
-    /* Fix navigation */
-    .nav-controls {
-        padding: 4px 8px !important;
-        gap: 3px !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        border-radius: 30px !important;
-        margin-bottom: 12px !important;
-        background: rgba(255, 255, 255, 0.04) !important;
-        border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    }
-
-    .nav-controls button {
-        font-size: 1rem !important;
-        padding: 2px 6px !important;
-        min-width: 24px !important;
-        background: none !important;
-        border: none !important;
-        color: #b0b0d0 !important;
-        cursor: pointer !important;
-    }
-
-    #currentMonthYear {
-        font-size: 0.7rem !important;
-        min-width: 60px !important;
-        text-align: center !important;
-        color: #d0c8f0 !important;
-    }
-
-    #monthDisplay {
-        font-size: 0.65rem !important;
-    }
-
-    #yearDisplay {
-        font-size: 0.65rem !important;
-        min-width: 25px !important;
-    }
-
-    #todayBtn {
-        font-size: 0.5rem !important;
-        padding: 2px 8px !important;
-        background: rgba(150, 100, 255, 0.15) !important;
-        border-radius: 20px !important;
-        color: #b388ff !important;
-    }
-
-    /* Fix app container */
-    #app {
-        padding: 8px !important;
-        border-radius: 14px !important;
-        margin: 4px !important;
-        max-width: 100% !important;
-        width: 100% !important;
-        overflow: hidden !important;
-    }
-
-    .header-row h1 {
-        font-size: 0.85rem !important;
-        margin-bottom: 0 !important;
-    }
-
-    .theme-btn {
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 0.9rem !important;
-    }
-
-    /* Fix popup */
-    .popup {
-        width: 95% !important;
-        max-width: 95% !important;
-        padding: 14px !important;
-        border-radius: 14px !important;
-        max-height: 90vh !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) scale(0.95) !important;
-    }
-
-    .popup.visible {
-        transform: translate(-50%, -50%) scale(1) !important;
-    }
-
-    #noteDateTitle {
-        font-size: 1rem !important;
-        margin-bottom: 10px !important;
-    }
-
-    .popup-section {
-        margin-bottom: 10px !important;
-    }
-
-    .popup-section h4 {
-        font-size: 0.65rem !important;
-        margin-bottom: 4px !important;
-    }
-
-    .events-list {
-        padding: 6px 8px !important;
-        min-height: 25px !important;
-    }
-
-    .events-list .event-item {
-        font-size: 0.7rem !important;
-        padding: 3px 0 !important;
-    }
-
-    .note-input-row {
-        flex-direction: column !important;
-        gap: 4px !important;
-    }
-
-    #noteInput {
-        font-size: 0.7rem !important;
-        padding: 6px 8px !important;
-        min-height: 30px !important;
-    }
-
-    #addNoteBtn {
-        width: 100% !important;
-        height: 30px !important;
-        font-size: 0.7rem !important;
-        padding: 4px 8px !important;
-    }
-
-    .notes-list {
-        max-height: 100px !important;
-        padding: 3px 6px !important;
-    }
-
-    .note-item {
-        padding: 3px 6px !important;
-    }
-
-    .note-item .note-text {
-        font-size: 0.7rem !important;
-    }
-
-    .note-item .note-delete-btn {
-        font-size: 0.65rem !important;
-        padding: 1px 4px !important;
-    }
-
-    .clear-all-btn {
-        font-size: 0.6rem !important;
-        padding: 3px 10px !important;
-        width: 100% !important;
-        text-align: center !important;
-    }
-
-    .close-btn {
-        width: 26px !important;
-        height: 26px !important;
-        font-size: 0.9rem !important;
-        top: -3px !important;
-        right: -3px !important;
-    }
-
-    .tooltip {
-        max-width: 180px !important;
-        min-width: 120px !important;
-        padding: 6px 10px !important;
-        font-size: 0.6rem !important;
-        border-radius: 8px !important;
-    }
-
-    .tooltip .event-title {
-        font-size: 0.65rem !important;
-    }
-
-    .tooltip .event-year {
-        font-size: 0.55rem !important;
-    }
-}
-
-/* Extra small phones (under 400px) */
-@media screen and (max-width: 400px) {
-    .date-cell {
-        min-height: 28px !important;
-        max-height: 38px !important;
-        font-size: 0.55rem !important;
-        border-radius: 4px !important;
-    }
-
-    .date-cell .day-number {
-        font-size: 0.55rem !important;
-    }
-
-    .day-headers div {
-        font-size: 0.4rem !important;
-        padding: 2px 0 !important;
-    }
-
-    .calendar-grid {
-        gap: 1px !important;
-        padding: 1px !important;
-    }
-
-    .day-headers {
-        gap: 1px !important;
-        padding: 0 1px !important;
-        margin-bottom: 2px !important;
-    }
-
-    #app {
-        padding: 4px !important;
-        border-radius: 10px !important;
-    }
-
-    .header-row h1 {
-        font-size: 0.7rem !important;
-    }
-
-    .theme-btn {
-        width: 24px !important;
-        height: 24px !important;
-        font-size: 0.7rem !important;
-    }
-
-    .nav-controls {
-        padding: 2px 4px !important;
-        gap: 2px !important;
-    }
-
-    .nav-controls button {
-        font-size: 0.8rem !important;
-        padding: 1px 4px !important;
-        min-width: 20px !important;
-    }
-
-    #currentMonthYear {
-        font-size: 0.55rem !important;
-        min-width: 50px !important;
-    }
-
-    #todayBtn {
-        font-size: 0.45rem !important;
-        padding: 1px 4px !important;
-    }
-
-    .popup {
-        padding: 10px !important;
-        border-radius: 10px !important;
-    }
-
-    #noteInput {
-        font-size: 0.6rem !important;
-        padding: 4px 6px !important;
-        min-height: 24px !important;
-    }
-
-    #addNoteBtn {
-        font-size: 0.6rem !important;
-        height: 24px !important;
-    }
-
-    .note-item .note-text {
-        font-size: 0.6rem !important;
-    }
-
-    .tooltip {
-        max-width: 140px !important;
-        min-width: 100px !important;
-        padding: 4px 6px !important;
-        font-size: 0.5rem !important;
-    }
-
-    .tooltip .event-title {
-        font-size: 0.55rem !important;
-    }
-
-    .tooltip .event-year {
-        font-size: 0.45rem !important;
-    }
-}
-/* ================================================================ */
-/* URGENT MOBILE GRID FIX */
+/* DESKTOP DATE CELL SIZE */
 /* ================================================================ */
 
-/* Force grid to show exactly 7 columns */
-.calendar-grid {
-    display: grid !important;
-    grid-template-columns: repeat(7, 1fr) !important;
-    grid-template-rows: auto !important;
-    gap: 2px !important;
-    padding: 2px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-}
-
-/* Force each cell to stay in its column */
-.date-cell {
-    grid-column: span 1 !important;
-    grid-row: span 1 !important;
-    aspect-ratio: 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    min-height: 35px !important;
-    max-height: 45px !important;
-    padding: 2px !important;
-    font-size: 0.65rem !important;
-    border-radius: 6px !important;
-    box-sizing: border-box !important;
-    background: rgba(255, 255, 255, 0.02) !important;
-    color: #a090b0 !important;
-    cursor: pointer !important;
-    position: relative !important;
-    overflow: hidden !important;
-    -webkit-tap-highlight-color: transparent !important;
-    touch-action: manipulation !important;
-    user-select: none !important;
-}
-
-/* Fix for today's date */
-.date-cell.today {
-    color: #b388ff !important;
-    font-weight: 700 !important;
-    border: 1px solid rgba(150, 100, 255, 0.3) !important;
-}
-
-/* Empty cells should not break the grid */
-.date-cell.empty {
-    opacity: 0.15 !important;
-    background: transparent !important;
-    cursor: default !important;
-}
-
-/* Day headers - match the grid */
-.day-headers {
-    display: grid !important;
-    grid-template-columns: repeat(7, 1fr) !important;
-    gap: 2px !important;
-    padding: 0 2px !important;
-    margin-bottom: 4px !important;
-    width: 100% !important;
-}
-
-.day-headers div {
-    text-align: center !important;
-    font-size: 0.5rem !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.3px !important;
-    color: #6a5a8a !important;
-    padding: 3px 0 !important;
-    width: 100% !important;
-}
-
-/* Indicators should be tiny on mobile */
-.date-cell .event-indicator {
-    width: 4px !important;
-    height: 4px !important;
-    margin-top: 1px !important;
-    background: #7c4dff !important;
-    border-radius: 50% !important;
-    box-shadow: 0 0 8px rgba(124, 77, 255, 0.3) !important;
-    flex-shrink: 0 !important;
-}
-
-.date-cell .note-indicator {
-    width: 4px !important;
-    height: 4px !important;
-    margin-top: 1px !important;
-    background: #ffab40 !important;
-    border-radius: 2px !important;
-    box-shadow: 0 0 8px rgba(255, 171, 64, 0.2) !important;
-    flex-shrink: 0 !important;
-}
-/* ================================================================ */
-/* FIX DESKTOP DATE CELL SIZE */
-/* ================================================================ */
-
-/* Desktop - normal size */
 @media (min-width: 769px) {
     .date-cell {
         aspect-ratio: 1 !important;
@@ -1799,123 +1307,9 @@ body.light-theme::-webkit-scrollbar-thumb {
         font-size: 0.75rem !important;
         padding: 8px 0 !important;
     }
-}
-/* ================================================================ */
-/* FIX MOBILE TOOLTIP ALIGNMENT */
-/* ================================================================ */
-
-@media (max-width: 768px) {
-    .tooltip {
-        max-width: 160px !important;
-        min-width: 100px !important;
-        padding: 6px 10px !important;
-        font-size: 0.55rem !important;
-        border-radius: 8px !important;
-        pointer-events: none !important;
-        z-index: 1001 !important;
-        transform: translateY(0) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-    }
-
-    .tooltip.visible {
-        transform: translateY(0) !important;
-    }
-
-    .tooltip .event-title {
-        font-size: 0.6rem !important;
-        line-height: 1.2 !important;
-    }
-
-    .tooltip .event-year {
-        font-size: 0.5rem !important;
-        padding: 0 6px !important;
-        margin-top: 2px !important;
-    }
-
-    /* Arrow */
-    .tooltip::after {
-        bottom: -5px !important;
-        border-left: 5px solid transparent !important;
-        border-right: 5px solid transparent !important;
-        border-top: 5px solid rgba(20, 15, 40, 0.95) !important;
-    }
-
-    .tooltip.below::after {
-        top: -5px !important;
-        bottom: auto !important;
-        border-top: none !important;
-        border-bottom: 5px solid rgba(20, 15, 40, 0.95) !important;
-    }
-}
-/* ================================================================ */
-/* FORCE DATE CELL SIZE - DESKTOP FIX */
-/* ================================================================ */
-
-/* Desktop only - force proper cell size */
-@media screen and (min-width: 769px) {
-    .calendar-grid {
-        display: grid !important;
-        grid-template-columns: repeat(7, 1fr) !important;
-        gap: 6px !important;
-        padding: 6px !important;
-        max-width: 100% !important;
-    }
-
-    .date-cell {
-        aspect-ratio: 1 / 1 !important;
-        min-height: 65px !important;
-        max-height: 85px !important;
-        width: 100% !important;
-        padding: 6px !important;
-        font-size: 1rem !important;
-        border-radius: 14px !important;
-        background: rgba(255, 255, 255, 0.03) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        box-sizing: border-box !important;
-    }
-
-    .date-cell .day-number {
-        font-size: 1rem !important;
-        line-height: 1.2 !important;
-    }
-
-    .date-cell .event-indicator {
-        width: 7px !important;
-        height: 7px !important;
-        margin-top: 4px !important;
-    }
-
-    .date-cell .note-indicator {
-        width: 7px !important;
-        height: 7px !important;
-        margin-top: 3px !important;
-    }
-
-    .day-headers {
-        gap: 6px !important;
-        padding: 0 6px !important;
-        margin-bottom: 10px !important;
-    }
-
-    .day-headers div {
-        font-size: 0.8rem !important;
-        padding: 10px 0 !important;
-    }
 
     #app {
-        padding: 35px !important;
+        padding: 30px !important;
         max-width: 1000px !important;
-    }
-}
-
-/* Tablet */
-@media screen and (min-width: 600px) and (max-width: 768px) {
-    .date-cell {
-        min-height: 50px !important;
-        max-height: 65px !important;
-        font-size: 0.8rem !important;
     }
 }
