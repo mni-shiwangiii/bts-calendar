@@ -512,22 +512,22 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // Get the cell position
         const rect = cell.getBoundingClientRect();
-
-        // Position tooltip ABOVE the cell
-        let left = rect.left + rect.width / 2 - 100; // Center horizontally
-        let top = rect.top - 70; // Above the cell
-
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        // Horizontal adjustment - FIXED for mobile
+        // Position tooltip ABOVE the cell - CENTERED
+        let left = rect.left + rect.width / 2 - 90;
+        let top = rect.top - 65;
+
+        // Make sure tooltip stays in viewport
         if (left < 10) left = 10;
-        if (left + 200 > viewportWidth - 10) {
-            left = viewportWidth - 210;
+        if (left + 180 > viewportWidth - 10) {
+            left = viewportWidth - 190;
         }
 
-        // Vertical adjustment - if not enough space above, show below
+        // If not enough space above, show below
         if (top < 10) {
             top = rect.bottom + 10;
             tooltip.classList.add('below');
@@ -535,6 +535,7 @@ document.addEventListener('DOMContentLoaded', function () {
             tooltip.classList.remove('below');
         }
 
+        // Apply position
         tooltip.style.left = left + 'px';
         tooltip.style.top = top + 'px';
     }
