@@ -183,11 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 1; i <= daysInMonth; i++) {
             const cell = document.createElement('div');
             cell.className = 'date-cell';
-
-            const dayNumber = document.createElement('span');
-            dayNumber.className = 'day-number';
-            dayNumber.textContent = i;
-            cell.appendChild(dayNumber);
+            cell.textContent = i; // ← This sets the day number
 
             // Check if today
             if (
@@ -214,9 +210,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 cell.appendChild(indicator);
             }
 
-            // ================================================================
+            // Check for saved notes
+            const notes = getNotesForDate(currentYear, currentMonth + 1, i);
+            if (notes.length > 0) {
+                const noteIndicator = document.createElement('span');
+                noteIndicator.className = 'note-indicator';
+                noteIndicator.style.cssText = `
+                width: 6px;
+                height: 6px;
+                background: #ffab40;
+                border-radius: 2px;
+                margin-top: 2px;
+                box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
+            `;
+                cell.appendChild(noteIndicator);
+                cell.dataset.hasNote = 'true';
+            }
+
             // HOVER - Shows Tooltip (Desktop only)
-            // ================================================================
             cell.addEventListener('mouseenter', function (e) {
                 const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
                 if (events.length > 0) {
@@ -227,9 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 hideTooltip();
             });
 
-            // ================================================================
             // LONG PRESS - Shows Tooltip (Mobile only)
-            // ================================================================
             let pressTimer = null;
             cell.addEventListener('touchstart', function (e) {
                 const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
@@ -247,30 +256,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 clearTimeout(pressTimer);
             });
 
-            // ================================================================
             // CLICK / TAP - Opens Note Popup
-            // ================================================================
             cell.addEventListener('click', function (e) {
                 clearTimeout(this._pressTimer);
                 openNotePopup(currentYear, currentMonth + 1, i);
             });
-
-            // Check for saved notes
-            const notes = getNotesForDate(currentYear, currentMonth + 1, i);
-            if (notes.length > 0) {
-                const noteIndicator = document.createElement('span');
-                noteIndicator.className = 'note-indicator';
-                noteIndicator.style.cssText = `
-                width: 6px;
-                height: 6px;
-                background: #ffab40;
-                border-radius: 2px;
-                margin-top: 2px;
-                box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
-            `;
-                cell.appendChild(noteIndicator);
-                cell.dataset.hasNote = 'true';
-            }
 
             grid.appendChild(cell);
         }
@@ -297,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         noteDateTitle.textContent = `📝 ${dateObj.toLocaleDateString('en-US', options)}`;
 
-        // Show BTS events
+        // Show BTS events - FIXED
         const events = getEventsForFullDate(year, month, day);
         noteEvents.innerHTML = '';
         if (events.length === 0) {
@@ -306,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
             events.forEach((ev) => {
                 const item = document.createElement('div');
                 item.className = 'event-item';
-                item.textContent = `${ev.description}`;
+                item.textContent = ev.description;
                 noteEvents.appendChild(item);
             });
         }
