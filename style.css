@@ -1847,3 +1847,75 @@ body.light-theme::-webkit-scrollbar-thumb {
         border-bottom: 5px solid rgba(20, 15, 40, 0.95) !important;
     }
 }
+/* ================================================================ */
+/* FORCE DATE CELL SIZE - DESKTOP FIX */
+/* ================================================================ */
+
+/* Desktop only - force proper cell size */
+@media screen and (min-width: 769px) {
+    .calendar-grid {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 6px !important;
+        padding: 6px !important;
+        max-width: 100% !important;
+    }
+
+    .date-cell {
+        aspect-ratio: 1 / 1 !important;
+        min-height: 65px !important;
+        max-height: 85px !important;
+        width: 100% !important;
+        padding: 6px !important;
+        font-size: 1rem !important;
+        border-radius: 14px !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+
+    .date-cell .day-number {
+        font-size: 1rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .date-cell .event-indicator {
+        width: 7px !important;
+        height: 7px !important;
+        margin-top: 4px !important;
+    }
+
+    .date-cell .note-indicator {
+        width: 7px !important;
+        height: 7px !important;
+        margin-top: 3px !important;
+    }
+
+    .day-headers {
+        gap: 6px !important;
+        padding: 0 6px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .day-headers div {
+        font-size: 0.8rem !important;
+        padding: 10px 0 !important;
+    }
+
+    #app {
+        padding: 35px !important;
+        max-width: 1000px !important;
+    }
+}
+
+/* Tablet */
+@media screen and (min-width: 600px) and (max-width: 768px) {
+    .date-cell {
+        min-height: 50px !important;
+        max-height: 65px !important;
+        font-size: 0.8rem !important;
+    }
+}
