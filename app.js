@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ================================================================
-    // EVENT FILTER FUNCTION - WITH ANNIVERSARY CALCULATION
+    // EVENT FILTER FUNCTION
     // ================================================================
 
     function getEventsForFullDate(year, month, day) {
@@ -111,12 +111,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // BTS Calendar - Main JavaScript
     // ================================================================
 
-    // Get the current date
     const today = new Date();
     let currentMonth = today.getMonth();
     let currentYear = today.getFullYear();
 
-    // Get elements
     const grid = document.getElementById('calendarGrid');
     const monthDisplay = document.getElementById('monthDisplay');
     const yearDisplay = document.getElementById('yearDisplay');
@@ -139,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentSelectedDate = null;
 
     // ================================================================
-    // RENDER CALENDAR - FIXED
+    // RENDER CALENDAR
     // ================================================================
 
     function renderCalendar() {
@@ -166,9 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
         monthDisplay.textContent = months[currentMonth];
         yearDisplay.textContent = currentYear;
 
-        // ================================================================
         // PREVIOUS MONTH DAYS (Padding)
-        // ================================================================
         const prevMonthStart = daysInPrevMonth - firstDay + 1;
         for (let i = prevMonthStart; i <= daysInPrevMonth; i++) {
             const cell = document.createElement('div');
@@ -177,15 +173,13 @@ document.addEventListener('DOMContentLoaded', function () {
             grid.appendChild(cell);
         }
 
-        // ================================================================
         // CURRENT MONTH DAYS
-        // ================================================================
         for (let i = 1; i <= daysInMonth; i++) {
             const cell = document.createElement('div');
             cell.className = 'date-cell';
             cell.textContent = i;
 
-            // Check if today
+            // Today
             if (
                 i === today.getDate() &&
                 currentMonth === today.getMonth() &&
@@ -194,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cell.classList.add('today');
             }
 
-            // Check for BTS events
+            // BTS Events
             const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
             if (events.length > 0) {
                 const indicator = document.createElement('span');
@@ -210,50 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cell.appendChild(indicator);
             }
 
-            // ================================================================
-            // HOVER - Shows Tooltip (Desktop only)
-            // ================================================================
-            cell.addEventListener('mouseenter', function (e) {
-                const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
-                if (events.length > 0) {
-                    showTooltip(e, events);
-                }
-            });
-            cell.addEventListener('mouseleave', function (e) {
-                hideTooltip();
-            });
-
-            // ================================================================
-            // LONG PRESS - Shows Tooltip (Mobile only)
-            // ================================================================
-            let pressTimer = null;
-            cell.addEventListener('touchstart', function (e) {
-                const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
-                if (events.length > 0) {
-                    pressTimer = setTimeout(function () {
-                        e.preventDefault();
-                        showTooltip(e, events);
-                    }, 800);
-                }
-            });
-            cell.addEventListener('touchmove', function (e) {
-                clearTimeout(pressTimer);
-            });
-            cell.addEventListener('touchend', function (e) {
-                clearTimeout(pressTimer);
-            });
-
-            // ================================================================
-            // CLICK / TAP - Opens Note Popup (NOT tooltip!)
-            // ================================================================
-            cell.addEventListener('click', function (e) {
-                // Prevent any tooltip from showing on click
-                clearTimeout(pressTimer);
-                hideTooltip();
-                openNotePopup(currentYear, currentMonth + 1, i);
-            });
-
-            // Check for saved notes
+            // Saved Notes
             const notes = getNotesForDate(currentYear, currentMonth + 1, i);
             if (notes.length > 0) {
                 const noteIndicator = document.createElement('span');
@@ -270,12 +221,52 @@ document.addEventListener('DOMContentLoaded', function () {
                 cell.dataset.hasNote = 'true';
             }
 
+            // ================================================================
+            // HOVER - Tooltip (Desktop)
+            // ================================================================
+            cell.addEventListener('mouseenter', function (e) {
+                const evts = getEventsForFullDate(currentYear, currentMonth + 1, i);
+                if (evts.length > 0) {
+                    showTooltip(e, evts);
+                }
+            });
+            cell.addEventListener('mouseleave', function (e) {
+                hideTooltip();
+            });
+
+            // ================================================================
+            // LONG PRESS - Tooltip (Mobile)
+            // ================================================================
+            let pressTimer = null;
+            cell.addEventListener('touchstart', function (e) {
+                const evts = getEventsForFullDate(currentYear, currentMonth + 1, i);
+                if (evts.length > 0) {
+                    pressTimer = setTimeout(function () {
+                        e.preventDefault();
+                        showTooltip(e, evts);
+                    }, 800);
+                }
+            });
+            cell.addEventListener('touchmove', function (e) {
+                clearTimeout(pressTimer);
+            });
+            cell.addEventListener('touchend', function (e) {
+                clearTimeout(pressTimer);
+            });
+
+            // ================================================================
+            // CLICK - Opens Note Popup (Desktop & Mobile)
+            // ================================================================
+            cell.addEventListener('click', function (e) {
+                clearTimeout(pressTimer);
+                hideTooltip();
+                openNotePopup(currentYear, currentMonth + 1, i);
+            });
+
             grid.appendChild(cell);
         }
 
-        // ================================================================
-        // NEXT MONTH DAYS (Padding to complete the grid)
-        // ================================================================
+        // NEXT MONTH DAYS (Padding)
         const totalCells = grid.children.length;
         const remainingCells = 42 - totalCells;
         for (let i = 1; i <= remainingCells; i++) {
@@ -296,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         noteDateTitle.textContent = `📝 ${dateObj.toLocaleDateString('en-US', options)}`;
 
-        // Show BTS events
+        // Show BTS events for this date
         const events = getEventsForFullDate(year, month, day);
         noteEvents.innerHTML = '';
         if (events.length === 0) {
@@ -310,10 +301,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Load and display notes
+        // Load saved notes
         renderNotesList(year, month, day);
 
-        // Clear input and reset height
+        // Clear input
         noteInput.value = '';
         noteInput.style.height = 'auto';
 
@@ -479,7 +470,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ================================================================
-    // TOOLTIP FUNCTIONS
+    // TOOLTIP FUNCTIONS - FIXED (Appears above date cell)
     // ================================================================
 
     function showTooltip(event, events) {
@@ -494,30 +485,38 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltip.innerHTML = html;
         tooltip.classList.add('visible');
 
-        let clientX, clientY;
-        if (event.touches) {
-            clientX = event.touches[0].clientX;
-            clientY = event.touches[0].clientY;
-        } else {
-            clientX = event.clientX;
-            clientY = event.clientY;
+        // Get the cell element
+        let cell = event.currentTarget;
+        if (!cell && event.target) {
+            cell = event.target.closest('.date-cell');
+        }
+        if (!cell) {
+            cell = event.target;
         }
 
-        let left = clientX + 15;
-        let top = clientY - 10;
+        const rect = cell.getBoundingClientRect();
+
+        // Position tooltip ABOVE the cell
+        let left = rect.left + rect.width / 2 - 140;
+        let top = rect.top - 80;
 
         const tooltipRect = tooltip.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        if (left + 280 > viewportWidth - 10) {
-            left = clientX - 290;
-        }
-        if (top + 200 > viewportHeight - 10) {
-            top = clientY - 210;
-        }
+        // Horizontal adjustment
         if (left < 10) left = 10;
-        if (top < 10) top = 10;
+        if (left + 280 > viewportWidth - 10) {
+            left = viewportWidth - 290;
+        }
+
+        // Vertical adjustment - if not enough space above, show below
+        if (top < 10) {
+            top = rect.bottom + 10;
+            tooltip.classList.add('below');
+        } else {
+            tooltip.classList.remove('below');
+        }
 
         tooltip.style.left = left + 'px';
         tooltip.style.top = top + 'px';
@@ -525,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function hideTooltip() {
         tooltip.classList.remove('visible');
+        tooltip.classList.remove('below');
     }
 
     // ================================================================
