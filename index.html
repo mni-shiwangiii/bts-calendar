@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BTS ARMY Calendar</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="app">
+            <div class="header-row">
+                <h1>🌟 BTS ARMY Calendar 🌟</h1>
+                <button id="themeToggle" class="theme-btn">🌙</button>
+            </div>
+
+            <!-- Month Navigation -->
+            <div class="nav-controls">
+                <button id="prevMonth">‹</button>
+                <h2 id="currentMonthYear">
+                    <span id="monthDisplay">September</span>
+                    <span id="yearDisplay" contenteditable="true">2026</span>
+                </h2>
+                <button id="nextMonth">›</button>
+                <button id="todayBtn">Today</button>
+            </div>
+
+            <!-- Calendar Grid -->
+            <div class="day-headers">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div id="calendarGrid" class="calendar-grid"></div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- NOTES POPUP -->
+        <!-- ================================================================ -->
+        <div id="notePopup" class="popup hidden">
+            <div class="popup-content">
+                <button id="closeNotePopup" class="close-btn">✕</button>
+                <h3 id="noteDateTitle">📝 Date</h3>
+
+                <div class="popup-section">
+                    <h4>📅 BTS Events</h4>
+                    <div id="noteEvents" class="events-list">
+                        <p class="no-events">No BTS events on this day</p>
+                    </div>
+                </div>
+
+                <div class="popup-section">
+                    <h4>✏️ Add New Note</h4>
+                    <div class="note-input-row">
+                        <textarea
+                            id="noteInput"
+                            placeholder="Write your note here..."
+                            rows="1"
+                        ></textarea>
+                        <button id="addNoteBtn">➕ Add</button>
+                    </div>
+                </div>
+
+                <div class="popup-section">
+                    <h4>📋 My Notes (<span id="noteCount">0</span>)</h4>
+                    <div id="notesList" class="notes-list">
+                        <p class="no-notes">No notes saved for this day</p>
+                    </div>
+                    <button id="clearAllNotesBtn" class="clear-all-btn">🗑️ Clear All</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div id="overlay" class="overlay hidden"></div>
+
+        <!-- Tooltip -->
+        <div id="tooltip" class="tooltip"></div>
+
+        <!-- Scripts -->
+        <script src="data.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
