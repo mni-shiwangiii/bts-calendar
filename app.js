@@ -268,19 +268,45 @@ document.addEventListener('DOMContentLoaded', function () {
         noteDateTitle.textContent = `📝 ${dateObj.toLocaleDateString('en-US', options)}`;
 
         // Show BTS events
-        const events = getEventsForFullDate(year, month, day);
-        noteEvents.innerHTML = '';
-        if (events.length === 0) {
-            noteEvents.innerHTML = '<p class="no-events">🎵 No BTS events on this day</p>';
-        } else {
-            events.forEach((ev) => {
-                const item = document.createElement('div');
-                item.className = 'event-item';
-                item.textContent = `${ev.description}`;
-                noteEvents.appendChild(item);
+        // Check for BTS events
+        const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
+        if (events.length > 0) {
+            const indicator = document.createElement('span');
+            indicator.className = 'event-indicator';
+            indicator.style.cssText = `
+        width: 6px;
+        height: 6px;
+        background: #7c4dff;
+        border-radius: 50%;
+        margin-top: 4px;
+        box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
+    `;
+            cell.appendChild(indicator);
+
+            // Tooltip on hover (Desktop)
+            cell.addEventListener('mouseenter', function (e) {
+                const freshEvents = getEventsForFullDate(currentYear, currentMonth + 1, i);
+                showTooltip(e, freshEvents);
+            });
+            cell.addEventListener('mouseleave', function (e) {
+                hideTooltip();
+            });
+
+            // Long press / Hard press for mobile
+            let pressTimer = null;
+            cell.addEventListener('touchstart', function (e) {
+                pressTimer = setTimeout(function () {
+                    const freshEvents = getEventsForFullDate(currentYear, currentMonth + 1, i);
+                    showTooltip(e, freshEvents);
+                }, 500); // 500ms = long press
+            });
+            cell.addEventListener('touchend', function (e) {
+                clearTimeout(pressTimer);
+            });
+            cell.addEventListener('touchmove', function (e) {
+                clearTimeout(pressTimer);
             });
         }
-
         // Load and display notes
         renderNotesList(year, month, day);
 
