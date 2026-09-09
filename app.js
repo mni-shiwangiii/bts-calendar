@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentSelectedDate = null;
 
     // ================================================================
-    // RENDER CALENDAR
+    // RENDER CALENDAR - FIXED
     // ================================================================
 
     function renderCalendar() {
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 1; i <= daysInMonth; i++) {
             const cell = document.createElement('div');
             cell.className = 'date-cell';
-            cell.textContent = i; // ← This sets the day number
+            cell.textContent = i;
 
             // Check if today
             if (
@@ -200,34 +200,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 const indicator = document.createElement('span');
                 indicator.className = 'event-indicator';
                 indicator.style.cssText = `
-                width: 6px;
-                height: 6px;
-                background: #7c4dff;
-                border-radius: 50%;
-                margin-top: 4px;
-                box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
-            `;
+                    width: 6px;
+                    height: 6px;
+                    background: #7c4dff;
+                    border-radius: 50%;
+                    margin-top: 4px;
+                    box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
+                `;
                 cell.appendChild(indicator);
             }
 
-            // Check for saved notes
-            const notes = getNotesForDate(currentYear, currentMonth + 1, i);
-            if (notes.length > 0) {
-                const noteIndicator = document.createElement('span');
-                noteIndicator.className = 'note-indicator';
-                noteIndicator.style.cssText = `
-                width: 6px;
-                height: 6px;
-                background: #ffab40;
-                border-radius: 2px;
-                margin-top: 2px;
-                box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
-            `;
-                cell.appendChild(noteIndicator);
-                cell.dataset.hasNote = 'true';
-            }
-
+            // ================================================================
             // HOVER - Shows Tooltip (Desktop only)
+            // ================================================================
             cell.addEventListener('mouseenter', function (e) {
                 const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
                 if (events.length > 0) {
@@ -238,7 +223,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 hideTooltip();
             });
 
+            // ================================================================
             // LONG PRESS - Shows Tooltip (Mobile only)
+            // ================================================================
             let pressTimer = null;
             cell.addEventListener('touchstart', function (e) {
                 const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
@@ -256,11 +243,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 clearTimeout(pressTimer);
             });
 
-            // CLICK / TAP - Opens Note Popup
+            // ================================================================
+            // CLICK / TAP - Opens Note Popup (NOT tooltip!)
+            // ================================================================
             cell.addEventListener('click', function (e) {
-                clearTimeout(this._pressTimer);
+                // Prevent any tooltip from showing on click
+                clearTimeout(pressTimer);
+                hideTooltip();
                 openNotePopup(currentYear, currentMonth + 1, i);
             });
+
+            // Check for saved notes
+            const notes = getNotesForDate(currentYear, currentMonth + 1, i);
+            if (notes.length > 0) {
+                const noteIndicator = document.createElement('span');
+                noteIndicator.className = 'note-indicator';
+                noteIndicator.style.cssText = `
+                    width: 6px;
+                    height: 6px;
+                    background: #ffab40;
+                    border-radius: 2px;
+                    margin-top: 2px;
+                    box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
+                `;
+                cell.appendChild(noteIndicator);
+                cell.dataset.hasNote = 'true';
+            }
 
             grid.appendChild(cell);
         }
@@ -277,6 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
             grid.appendChild(cell);
         }
     }
+
     // ================================================================
     // NOTES POPUP FUNCTIONS
     // ================================================================
@@ -287,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         noteDateTitle.textContent = `📝 ${dateObj.toLocaleDateString('en-US', options)}`;
 
-        // Show BTS events - FIXED
+        // Show BTS events
         const events = getEventsForFullDate(year, month, day);
         noteEvents.innerHTML = '';
         if (events.length === 0) {
@@ -333,7 +342,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <button class="note-delete-btn" data-note-id="${note.id}">✕</button>
             `;
 
-            // Delete button
             const deleteBtn = noteItem.querySelector('.note-delete-btn');
             deleteBtn.addEventListener('click', function (e) {
                 e.stopPropagation();
@@ -449,14 +457,12 @@ document.addEventListener('DOMContentLoaded', function () {
     addNoteBtn.addEventListener('click', handleAddNote);
     clearAllNotesBtn.addEventListener('click', handleClearAllNotes);
 
-    // Auto-expand textarea on input
     if (noteInput) {
         noteInput.addEventListener('input', function () {
             autoExpand(this);
         });
     }
 
-    // Enter key to add note (with Shift+Enter for new line)
     if (noteInput) {
         noteInput.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -466,7 +472,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Keyboard shortcut: Escape to close
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeNotePopupFn();
@@ -489,23 +494,15 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltip.innerHTML = html;
         tooltip.classList.add('visible');
 
-        // Get position from touch or mouse event
         let clientX, clientY;
         if (event.touches) {
-            // Touch event
             clientX = event.touches[0].clientX;
             clientY = event.touches[0].clientY;
-        } else if (event.changedTouches) {
-            // Touch end event
-            clientX = event.changedTouches[0].clientX;
-            clientY = event.changedTouches[0].clientY;
         } else {
-            // Mouse event
             clientX = event.clientX;
             clientY = event.clientY;
         }
 
-        // Position tooltip near cursor
         let left = clientX + 15;
         let top = clientY - 10;
 
@@ -513,7 +510,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        // Keep tooltip in viewport
         if (left + 280 > viewportWidth - 10) {
             left = clientX - 290;
         }
@@ -537,7 +533,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const themeToggle = document.getElementById('themeToggle');
 
-    // Check for saved theme preference
     const savedTheme = localStorage.getItem('bts-theme');
     if (savedTheme === 'light') {
         document.body.classList.add('light-theme');
