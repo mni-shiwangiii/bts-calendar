@@ -200,24 +200,58 @@ document.addEventListener('DOMContentLoaded', function () {
                 const indicator = document.createElement('span');
                 indicator.className = 'event-indicator';
                 indicator.style.cssText = `
-                width: 6px;
-                height: 6px;
-                background: #7c4dff;
-                border-radius: 50%;
-                margin-top: 4px;
-                box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
-            `;
+                    width: 6px;
+                    height: 6px;
+                    background: #7c4dff;
+                    border-radius: 50%;
+                    margin-top: 4px;
+                    box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
+                `;
                 cell.appendChild(indicator);
-
-                // Tooltip on hover
-                cell.addEventListener('mouseenter', function (e) {
-                    const freshEvents = getEventsForFullDate(currentYear, currentMonth + 1, i);
-                    showTooltip(e, freshEvents);
-                });
-                cell.addEventListener('mouseleave', function (e) {
-                    hideTooltip();
-                });
             }
+
+            // ================================================================
+            // HOVER - Shows Tooltip (Desktop only)
+            // ================================================================
+            cell.addEventListener('mouseenter', function (e) {
+                const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
+                if (events.length > 0) {
+                    showTooltip(e, events);
+                }
+            });
+            cell.addEventListener('mouseleave', function (e) {
+                hideTooltip();
+            });
+
+            // ================================================================
+            // LONG PRESS - Shows Tooltip (Mobile only)
+            // ================================================================
+            let pressTimer = null;
+            cell.addEventListener('touchstart', function (e) {
+                const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
+                if (events.length > 0) {
+                    pressTimer = setTimeout(function () {
+                        // Prevent tap from triggering
+                        e.preventDefault();
+                        showTooltip(e, events);
+                    }, 800); // 800ms = long press
+                }
+            });
+            cell.addEventListener('touchmove', function (e) {
+                clearTimeout(pressTimer);
+            });
+            cell.addEventListener('touchend', function (e) {
+                clearTimeout(pressTimer);
+            });
+
+            // ================================================================
+            // CLICK / TAP - Opens Note Popup (Both Desktop & Mobile)
+            // ================================================================
+            cell.addEventListener('click', function (e) {
+                // Prevent click from triggering tooltip
+                clearTimeout(this._pressTimer);
+                openNotePopup(currentYear, currentMonth + 1, i);
+            });
 
             // Check for saved notes
             const notes = getNotesForDate(currentYear, currentMonth + 1, i);
@@ -225,21 +259,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 const noteIndicator = document.createElement('span');
                 noteIndicator.className = 'note-indicator';
                 noteIndicator.style.cssText = `
-                width: 6px;
-                height: 6px;
-                background: #ffab40;
-                border-radius: 2px;
-                margin-top: 2px;
-                box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
-            `;
+                    width: 6px;
+                    height: 6px;
+                    background: #ffab40;
+                    border-radius: 2px;
+                    margin-top: 2px;
+                    box-shadow: 0 0 12px rgba(255, 171, 64, 0.3);
+                `;
                 cell.appendChild(noteIndicator);
                 cell.dataset.hasNote = 'true';
             }
-
-            // Click to open note popup
-            cell.addEventListener('click', function () {
-                openNotePopup(currentYear, currentMonth + 1, i);
-            });
 
             grid.appendChild(cell);
         }
@@ -268,45 +297,19 @@ document.addEventListener('DOMContentLoaded', function () {
         noteDateTitle.textContent = `📝 ${dateObj.toLocaleDateString('en-US', options)}`;
 
         // Show BTS events
-        // Check for BTS events
-        const events = getEventsForFullDate(currentYear, currentMonth + 1, i);
-        if (events.length > 0) {
-            const indicator = document.createElement('span');
-            indicator.className = 'event-indicator';
-            indicator.style.cssText = `
-        width: 6px;
-        height: 6px;
-        background: #7c4dff;
-        border-radius: 50%;
-        margin-top: 4px;
-        box-shadow: 0 0 12px rgba(124, 77, 255, 0.4);
-    `;
-            cell.appendChild(indicator);
-
-            // Tooltip on hover (Desktop)
-            cell.addEventListener('mouseenter', function (e) {
-                const freshEvents = getEventsForFullDate(currentYear, currentMonth + 1, i);
-                showTooltip(e, freshEvents);
-            });
-            cell.addEventListener('mouseleave', function (e) {
-                hideTooltip();
-            });
-
-            // Long press / Hard press for mobile
-            let pressTimer = null;
-            cell.addEventListener('touchstart', function (e) {
-                pressTimer = setTimeout(function () {
-                    const freshEvents = getEventsForFullDate(currentYear, currentMonth + 1, i);
-                    showTooltip(e, freshEvents);
-                }, 500); // 500ms = long press
-            });
-            cell.addEventListener('touchend', function (e) {
-                clearTimeout(pressTimer);
-            });
-            cell.addEventListener('touchmove', function (e) {
-                clearTimeout(pressTimer);
+        const events = getEventsForFullDate(year, month, day);
+        noteEvents.innerHTML = '';
+        if (events.length === 0) {
+            noteEvents.innerHTML = '<p class="no-events">🎵 No BTS events on this day</p>';
+        } else {
+            events.forEach((ev) => {
+                const item = document.createElement('div');
+                item.className = 'event-item';
+                item.textContent = `${ev.description}`;
+                noteEvents.appendChild(item);
             });
         }
+
         // Load and display notes
         renderNotesList(year, month, day);
 
@@ -335,9 +338,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const noteItem = document.createElement('div');
             noteItem.className = 'note-item';
             noteItem.innerHTML = `
-            <span class="note-text">📌 ${note.text}</span>
-            <button class="note-delete-btn" data-note-id="${note.id}">✕</button>
-        `;
+                <span class="note-text">📌 ${note.text}</span>
+                <button class="note-delete-btn" data-note-id="${note.id}">✕</button>
+            `;
 
             // Delete button
             const deleteBtn = noteItem.querySelector('.note-delete-btn');
@@ -487,31 +490,47 @@ document.addEventListener('DOMContentLoaded', function () {
         let html = '';
         events.forEach((ev) => {
             html += `
-            <div class="event-title">📌 ${ev.description}</div>
-            <span class="event-year">${ev.year}</span>
-        `;
+                <div class="event-title">📌 ${ev.description}</div>
+                <span class="event-year">${ev.year}</span>
+            `;
         });
 
         tooltip.innerHTML = html;
         tooltip.classList.add('visible');
 
-        const cell = event.currentTarget;
-        const rect = cell.getBoundingClientRect();
+        // Get position from touch or mouse event
+        let clientX, clientY;
+        if (event.touches) {
+            // Touch event
+            clientX = event.touches[0].clientX;
+            clientY = event.touches[0].clientY;
+        } else if (event.changedTouches) {
+            // Touch end event
+            clientX = event.changedTouches[0].clientX;
+            clientY = event.changedTouches[0].clientY;
+        } else {
+            // Mouse event
+            clientX = event.clientX;
+            clientY = event.clientY;
+        }
 
-        let left = rect.left + rect.width / 2 - 140;
-        let top = rect.top - 80;
+        // Position tooltip near cursor
+        let left = clientX + 15;
+        let top = clientY - 10;
 
         const tooltipRect = tooltip.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        if (left < 10) left = 10;
+        // Keep tooltip in viewport
         if (left + 280 > viewportWidth - 10) {
-            left = viewportWidth - 290;
+            left = clientX - 290;
         }
-        if (top < 10) {
-            top = rect.bottom + 10;
+        if (top + 200 > viewportHeight - 10) {
+            top = clientY - 210;
         }
+        if (left < 10) left = 10;
+        if (top < 10) top = 10;
 
         tooltip.style.left = left + 'px';
         tooltip.style.top = top + 'px';
@@ -521,11 +540,6 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltip.classList.remove('visible');
     }
 
-    // ================================================================
-    // INITIAL RENDER
-    // ================================================================
-
-    renderCalendar();
     // ================================================================
     // THEME TOGGLE
     // ================================================================
@@ -550,4 +564,10 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('bts-theme', 'dark');
         }
     });
-}); // END OF DOMContentLoaded
+
+    // ================================================================
+    // INITIAL RENDER
+    // ================================================================
+
+    renderCalendar();
+});
