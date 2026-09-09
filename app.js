@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (evts.length > 0) {
                     pressTimer = setTimeout(function () {
                         e.preventDefault();
+                        // Pass the cell as currentTarget
                         const fakeEvent = {
                             currentTarget: cell,
                             target: cell,
@@ -247,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             clientY: e.touches ? e.touches[0].clientY : 0,
                         };
                         showTooltip(fakeEvent, evts);
-                    }, 800);
+                    }, 600);
                 }
             });
             cell.addEventListener('touchmove', function (e) {
@@ -517,11 +518,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        // Position tooltip ABOVE the cell - CENTERED
+        // Position tooltip ABOVE the cell
+        // Use the cell's position, not the screen center
         let left = rect.left + rect.width / 2 - 90;
         let top = rect.top - 65;
 
-        // Make sure tooltip stays in viewport
+        // Keep tooltip within viewport
         if (left < 10) left = 10;
         if (left + 180 > viewportWidth - 10) {
             left = viewportWidth - 190;
